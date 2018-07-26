@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 
 import Paper from '@material-ui/core/Paper';
 
-class LibraryContainer extends Component {
+class DeckContainer extends Component {
 
     render(){
         return (
-            <div><Paper>LibraryContainer</Paper></div>
+            <div><Paper>DeckContainer</Paper></div>
         )
     }
 }
 
-export default LibraryContainer;
+export default DeckContainer;
