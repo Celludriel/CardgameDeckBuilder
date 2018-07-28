@@ -1,8 +1,8 @@
 {
-  "name": "react-electron-poc",
-  "version": "0.1.0",
+  "name": "cardgame-deckbuilder",
+  "version": "1.0.0",
   "private": true,
-  "description": "Electron App Poc",
+  "description": "Cardgame Deckbuilder",
   "author": "Celludriel",
   "devDependencies": {
     "electron": "^1.7.9",
@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@material-ui/core": "^1.4.1",
+    "@material-ui/icons": "^2.0.0",
+    "formik": "^1.0.2",
     "material-ui": "^0.20.1",
     "pouchdb-adapter-idb": "^6.3.4",
     "react": "^16.1.1",
@@ -36,7 +38,7 @@
     "postinstall": "install-app-deps"
   },
   "build": {
-    "appId": "com.electron.electron-with-create-react-app",
+    "appId": "be.celludriel.cardgame.deckbuilder",
     "win": {
       "icon": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
     },
