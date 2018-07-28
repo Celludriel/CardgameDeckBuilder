@@ -44,7 +44,7 @@ class LibraryEnhancedTable extends React.Component {
         createData('Oreo')
       ],
       page: 0,
-      rowsPerPage: 5,
+      rowsPerPage: 8,
     };
   }
 
@@ -118,6 +118,7 @@ class LibraryEnhancedTable extends React.Component {
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          rowsPerPageOptions={[8,16,24]}
         />
       </Paper>
     );

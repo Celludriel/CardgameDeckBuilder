@@ -11,15 +11,15 @@ import DeckContainer from './container/DeckContainer';
 class App extends Component {
     render() {
         return (<div className="App">
-            <Paper>                
+            <Paper>
                 <Grid container spacing={8}>
-                    <Grid item xs={5}>
+                    <Grid item xs={4}>
                         <LibraryContainer />
                     </Grid>
                     <Grid item xs={2}>
                         <InfoCardContainer />
                     </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={6}>
                         <DeckContainer />
                     </Grid>
                 </Grid>
