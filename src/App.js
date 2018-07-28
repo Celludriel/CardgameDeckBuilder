@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import './App.css';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-import LibraryContainer from './container/LibraryContainer';
-import InfoCardContainer from './container/InfoCardContainer';
-import DeckContainer from './container/DeckContainer';
+import LibraryContainer from './views/container/LibraryContainer';
+import InfoCardContainer from './views/container/InfoCardContainer';
+import DeckContainer from './views/container/DeckContainer';
 
 class App extends Component {
     render() {
