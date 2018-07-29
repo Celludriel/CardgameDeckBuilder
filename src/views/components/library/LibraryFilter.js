@@ -21,27 +21,28 @@ class LibraryFilter extends Component {
         const {handleBlur, handleSubmit, values} = this.props
 
         return (<form onSubmit={handleSubmit}>
-            <Input id="cardname" placeholder="Cardname" inputProps={{
-                    'aria-label' : 'Cardname'
-                }} value={values.cardname} onChange={this.handleCustomChange} onBlur={handleBlur} />
-            <br />
             <FormGroup row>
                 <FormControl>
-                  <InputLabel htmlFor="set">Set</InputLabel>
-                  <Select
-                    value={values.set}
-                    onChange={this.handleCustomChange}
-                    inputProps={{
-                      name: 'set',
-                      id: 'set',
-                    }}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={"ex8"}>ex8</MenuItem>
-                  </Select>
+                    <InputLabel htmlFor="set">Set</InputLabel>
+                    <Select
+                        value={values.set}
+                        onChange={this.handleCustomChange}
+                        inputProps={{
+                            name: 'set',
+                            id: 'set',
+                        }}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={"ex8"}>ex8</MenuItem>
+                    </Select>
                 </FormControl>
+                <Input id="cardname" placeholder="Cardname" inputProps={{
+                        'aria-label' : 'Cardname'
+                    }} value={values.cardname} onChange={this.handleCustomChange} onBlur={handleBlur} />
+            </FormGroup>
+            <FormGroup row>
                 <FormControlLabel
                   control={
                     <Checkbox

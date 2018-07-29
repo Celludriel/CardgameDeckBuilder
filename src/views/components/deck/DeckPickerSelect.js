@@ -38,10 +38,8 @@ class DeckPickerSelect extends Component {
 
   render() {
     return (
-      <div>
         <Input
             id="deck-selection"
-            fullWidth
             inputComponent={selectWrapped}
             inputProps={{
                 name: 'deck-selection',
@@ -53,7 +51,6 @@ class DeckPickerSelect extends Component {
             onChange={this.handleChange('single')}
             placeholder="Load an existing deck"
         />
-      </div>
     );
   }
 }
