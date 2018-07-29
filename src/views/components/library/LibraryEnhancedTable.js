@@ -8,12 +8,6 @@ import Paper from '@material-ui/core/Paper';
 
 import LibraryTableHead from './LibraryTableHead';
 
-let counter = 0;
-function createData(cardname) {
-  counter += 1;
-  return { id: counter, cardname };
-}
-
 function getSorting(order, orderBy) {
   return order === 'desc'
     ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
@@ -28,21 +22,7 @@ class LibraryEnhancedTable extends React.Component {
       order: 'asc',
       orderBy: 'cardname',
       selected: [],
-      data: [
-        createData('Cupcake'),
-        createData('Donut'),
-        createData('Eclair'),
-        createData('Frozen yoghurt'),
-        createData('Gingerbread'),
-        createData('Honeycomb'),
-        createData('Ice cream sandwich'),
-        createData('Jelly Bean'),
-        createData('KitKat'),
-        createData('Lollipop'),
-        createData('Marshmallow'),
-        createData('Nougat'),
-        createData('Oreo')
-      ],
+      data: [],
       page: 0,
       rowsPerPage: 8,
     };

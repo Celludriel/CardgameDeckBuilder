@@ -1,7 +1,7 @@
 
-async function querylibrary(state, filter){
-    if(this.state.db != null){
-        return await this.state.db.cards.find()
+async function querylibrary(state){
+    if(state.db != null){
+        return await state.db.cards.find()
             .where('name')
             .eq('Deoxys ex')
             .exec();

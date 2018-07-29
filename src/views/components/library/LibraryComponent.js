@@ -10,6 +10,8 @@ import EnhancedTable from './LibraryEnhancedTable';
 class LibraryComponent extends Component {
 
     render(){
+        const { rows } = this.props;
+
         return (
             <div>
                 <Card>
@@ -45,7 +47,7 @@ class LibraryComponent extends Component {
                 </Card>
                 <Divider />
                 <Card>
-                    <EnhancedTable />
+                    <EnhancedTable rows={rows} />
                 </Card>
             </div>
         )
