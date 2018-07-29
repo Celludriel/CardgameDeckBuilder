@@ -1,22 +1,22 @@
 import types from "./types";
 
-const startLoadDatabase = () => ({
+const startLoadDatabaseAction = () => ({
     type: types.START_LOAD_DATABASE
 });
 
-const loadDatabase = () => ({
+const loadDatabaseAction = () => ({
     type: types.LOAD_DATABASE
 });
 
-const endLoadDatabase = (db) => ({
+const endLoadDatabaseAction = (db) => ({
     type: types.END_LOAD_DATABASE,
     payload: {
         db
     }
 });
 
-export default {
-    startLoadDatabase,
-    loadDatabase,
-    endLoadDatabase
+export {
+    startLoadDatabaseAction,
+    loadDatabaseAction,
+    endLoadDatabaseAction
 };

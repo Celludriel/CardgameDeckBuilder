@@ -1,5 +1,5 @@
 import * as RxDB from 'rxdb';
-import { schema } from './../db/Schema';
+import { schema } from './../../db/Schema';
 
 //Electron setup
 const electron = window.require('electron');
@@ -10,7 +10,7 @@ RxDB.plugin(require('pouchdb-adapter-idb'));
 
 const dbName = 'carddb';
 
-export async function loadDatabaseOperation() {
+async function loadDatabaseOperation() {
     RxDB.removeDatabase('carddb', 'idb');
 
     // password must have at least 8 characters
@@ -34,7 +34,11 @@ export async function loadDatabaseOperation() {
     console.log(appPath);
 
     const data = JSON.parse(fs.readFileSync(appPath + '/data/data.json', 'utf-8'));
-    this.db.cards.pouch.bulkDocs(data.cards);
+    await db.cards.pouch.bulkDocs(data.cards);
 
     return db;
+}
+
+export {
+    loadDatabaseOperation
 }

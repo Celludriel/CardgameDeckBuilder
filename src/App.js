@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux'
+
+import { startLoadDatabaseAction } from './state/pokemon/actions'
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +11,12 @@ import InfoCardContainer from './views/container/InfoCardContainer';
 import DeckContainer from './views/container/DeckContainer';
 
 class App extends Component {
+
+    componentDidMount() {
+        const { startLoadDatabase } = this.props;
+        startLoadDatabase();
+    }
+
     render() {
         return (<div className="App">
             <Paper>
@@ -27,4 +36,22 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    startLoadDatabase: () => {
+      dispatch(startLoadDatabaseAction())
+    }
+  }
+}
+
+const AppReduxContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+
+export default AppReduxContainer

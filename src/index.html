@@ -17,13 +17,13 @@
     import configureStore from "./state/store";
 
     const render = () => {
-      const App = require('./App').default;
+      const AppReduxContainer = require('./App').default;
       const reduxStore = configureStore(window.REDUX_INITIAL_DATA);
       const theme = createMuiTheme({});
       ReactDOM.render(
           <ReduxProvider store={reduxStore}>
               <MuiThemeProvider theme={theme}>
-                  <App/>
+                  <AppReduxContainer />
               </MuiThemeProvider>
           </ReduxProvider>,
           document.getElementById('App'));
