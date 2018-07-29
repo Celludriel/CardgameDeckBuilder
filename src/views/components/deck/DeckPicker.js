@@ -1,24 +1,8 @@
 import React, {Component} from 'react';
 
-import TextField from '@material-ui/core/TextField'
-import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
-
-const decks = [
-  {
-    value: 'deck_1.json',
-    label: 'deck 1',
-  },
-  {
-    value: 'deck_2.json',
-    label: 'deck 2',
-  },
-  {
-    value: 'deck_3.json',
-    label: 'deck 3',
-  },
-];
+import DeckPickerSelect from './DeckPickerSelect'
 
 class DeckPicker extends Component {
 
@@ -36,18 +20,7 @@ class DeckPicker extends Component {
     render(){
         return (
             <div>
-                <TextField
-                  select
-                  label="Deck"
-                  value={this.state.deck}
-                  onChange={this.handleChange('deck')}
-                >
-                  {decks.map(option => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                <DeckPickerSelect />
                 <Button variant="contained" size="small" >
                   <SaveIcon />
                   Save
