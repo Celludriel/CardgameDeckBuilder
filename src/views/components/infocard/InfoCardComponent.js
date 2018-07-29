@@ -14,6 +14,9 @@ class InfoCardComponent extends Component {
                 <Card>
                     <img alt='card' src={app.getAppPath()  + '/data/test.png'} />
                 </Card>
+                <Card>
+                    == Cardinformation will come here ==
+                </Card>
             </div>
         )
     }

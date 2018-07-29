@@ -38,6 +38,7 @@ const createWindow = async () => {
     installExtension(REDUX_DEVTOOLS)
       .then(name => process.stdout.write(`Added Extension: ${name}\n`))
       .catch(err => process.stdout.write('An error occurred: ', err));
+    mainWindow.webContents.openDevTools();
   }
 
   // Emitted when the window is closed.
