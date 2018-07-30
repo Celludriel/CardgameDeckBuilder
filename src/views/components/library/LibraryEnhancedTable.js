@@ -72,7 +72,13 @@ class LibraryEnhancedTable extends React.Component {
                       key={n.id}
                     >
                       <TableCell component="th" scope="row" padding="none">
+                        {n.setCode}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
                         {n.name}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.types}
                       </TableCell>
                     </TableRow>
                   );

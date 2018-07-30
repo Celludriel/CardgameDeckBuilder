@@ -7,7 +7,9 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const columnData = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Cardname' }
+  { id: 'setCode', numeric: false, disablePadding: true, label: 'Set' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'Cardname' },
+  { id: 'types', numeric: false, disablePadding: true, label: 'Types' }
 ];
 
 class LibraryTableHead extends React.Component {

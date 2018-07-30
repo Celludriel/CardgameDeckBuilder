@@ -40,7 +40,7 @@ async function loadDatabaseOperation(cb) {
 }
 
 async function executeQuery(query, db, cb) {
-    await db.cards.find()
+    await db.cards.find({name: {$regex: ".*ragonite.*"}})
         .exec()
         .then(documents => cb(null, documents));
 }

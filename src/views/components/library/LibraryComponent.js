@@ -42,7 +42,8 @@ class LibraryComponent extends Component {
                           { setSubmitting, setErrors }
                         ) => {
                             console.log(values);
-                            executeQuery("")
+                            debugger
+                            executeQuery({name: {$eq: values.cardname}})
                         }}
                         component={LibraryFilter} />
                 </Card>
