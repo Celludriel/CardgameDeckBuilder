@@ -4,7 +4,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
 
 import LibraryTableHead from './LibraryTableHead';
 
@@ -20,9 +20,8 @@ class LibraryEnhancedTable extends React.Component {
 
     this.state = {
       order: 'asc',
-      orderBy: 'cardname',
+      orderBy: 'name',
       selected: [],
-      data: [],
       page: 0,
       rowsPerPage: 8,
     };
@@ -48,11 +47,12 @@ class LibraryEnhancedTable extends React.Component {
   };
 
   render() {
-    const { data, order, orderBy, rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const { order, orderBy, rowsPerPage, page } = this.state;
+    const { rows } = this.props;
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     return (
-      <Paper>
+      <Card>
         <div>
           <Table aria-labelledby="tableTitle">
             <LibraryTableHead
@@ -61,7 +61,7 @@ class LibraryEnhancedTable extends React.Component {
               onRequestSort={this.handleRequestSort}
             />
             <TableBody>
-              {data
+              {rows
                 .sort(getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
@@ -72,7 +72,7 @@ class LibraryEnhancedTable extends React.Component {
                       key={n.id}
                     >
                       <TableCell component="th" scope="row" padding="none">
-                        {n.cardname}
+                        {n.name}
                       </TableCell>
                     </TableRow>
                   );
@@ -87,7 +87,7 @@ class LibraryEnhancedTable extends React.Component {
         </div>
         <TablePagination
           component="div"
-          count={data.length}
+          count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
@@ -100,7 +100,7 @@ class LibraryEnhancedTable extends React.Component {
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
           rowsPerPageOptions={[8,16,24]}
         />
-      </Paper>
+    </Card>
     );
   }
 }

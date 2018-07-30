@@ -6,12 +6,12 @@ import Divider from '@material-ui/core/Divider';
 
 import LibraryFilter from './LibraryFilter';
 import EnhancedTable from './LibraryEnhancedTable';
+import QueryRunning from '../common/QueryRunning';
 
 class LibraryComponent extends Component {
 
     render(){
-        const { rows } = this.props;
-
+        const { rows, executeQuery, isQueryRunning } = this.props;
         return (
             <div>
                 <Card>
@@ -42,13 +42,13 @@ class LibraryComponent extends Component {
                           { setSubmitting, setErrors }
                         ) => {
                             console.log(values);
+                            executeQuery("")
                         }}
                         component={LibraryFilter} />
                 </Card>
                 <Divider />
-                <Card>
-                    <EnhancedTable rows={rows} />
-                </Card>
+                {!isQueryRunning && <EnhancedTable rows={rows} />}
+                {isQueryRunning && <QueryRunning />}
             </div>
         )
     }
