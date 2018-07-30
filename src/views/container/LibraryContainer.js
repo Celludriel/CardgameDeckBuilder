@@ -10,7 +10,7 @@ class LibraryContainer extends Component {
 
     componentDidMount(){
         const { executeQueryDispatch, db } = this.props;
-        executeQueryDispatch({name: {$eq: 'Dragonite'}},db);
+        executeQueryDispatch({},db);
     }
 
     executeQuery = (query ) => {
