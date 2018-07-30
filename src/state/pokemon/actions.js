@@ -4,10 +4,6 @@ const startLoadDatabaseAction = () => ({
     type: types.START_LOAD_DATABASE
 });
 
-const loadDatabaseAction = () => ({
-    type: types.LOAD_DATABASE
-});
-
 const endLoadDatabaseAction = (db) => ({
     type: types.END_LOAD_DATABASE,
     payload: {
@@ -17,6 +13,5 @@ const endLoadDatabaseAction = (db) => ({
 
 export {
     startLoadDatabaseAction,
-    loadDatabaseAction,
     endLoadDatabaseAction
 };

@@ -10,7 +10,7 @@ RxDB.plugin(require('pouchdb-adapter-idb'));
 
 const dbName = 'carddb';
 
-async function loadDatabaseOperation() {
+async function loadDatabaseOperation(cb) {
     RxDB.removeDatabase('carddb', 'idb');
 
     // password must have at least 8 characters
@@ -36,7 +36,7 @@ async function loadDatabaseOperation() {
     const data = JSON.parse(fs.readFileSync(appPath + '/data/data.json', 'utf-8'));
     await db.cards.pouch.bulkDocs(data.cards);
 
-    return db;
+    cb(null, db);
 }
 
 export {

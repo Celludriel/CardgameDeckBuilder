@@ -2,22 +2,18 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux'
 
 import LibraryComponent from '../components/library/LibraryComponent'
-import { querylibrary } from '../../state/pokemon/selectors'
 
 class LibraryContainer extends Component {
 
     render(){
-        const { libraryRows } = this.props;
-        debugger
         return (
-            <LibraryComponent rows={libraryRows} />
+            <LibraryComponent rows={[]} />
         )
     }
 }
 
 const mapStateToProps = state => {
   return {
-      libraryRows: querylibrary(state)
   }
 }
 
