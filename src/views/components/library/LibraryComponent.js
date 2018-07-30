@@ -42,8 +42,7 @@ class LibraryComponent extends Component {
                           { setSubmitting, setErrors }
                         ) => {
                             console.log(values);
-                            debugger
-                            executeQuery({name: {$eq: values.cardname}})
+                            executeQuery({name: {$regex: ".*" + values.cardname + ".*"}})
                         }}
                         component={LibraryFilter} />
                 </Card>
