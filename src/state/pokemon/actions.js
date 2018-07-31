@@ -11,7 +11,24 @@ const endLoadDatabaseAction = (db) => ({
     }
 });
 
+const startQueryAction = (query, db) => ({
+    type: types.START_QUERY,
+    payload: {
+        query,
+        db
+    }
+});
+
+const endQueryAction = (db) => ({
+    type: types.END_QUERY,
+    payload: {
+        db
+    }
+});
+
 export {
     startLoadDatabaseAction,
-    endLoadDatabaseAction
+    endLoadDatabaseAction,
+    startQueryAction,
+    endQueryAction
 };
