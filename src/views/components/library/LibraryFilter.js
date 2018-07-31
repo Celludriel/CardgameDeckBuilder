@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import { FieldArray } from "formik";
+
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -17,8 +19,23 @@ class LibraryFilter extends Component {
         this.props.submitForm();
     }
 
+    fieldArrayChange = (e) => {
+        this.props.submitForm();
+    }
+
+    typesChange = (e, arrayHelpers, values, type) => {
+      console.log(this)
+      if (e.target.checked) arrayHelpers.push(type);
+      else {
+        const idx = values.types.indexOf(type);
+        arrayHelpers.remove(idx);
+      }
+      this.fieldArrayChange(e);
+    }
+
     render() {
-        const {handleBlur, handleSubmit, values} = this.props
+        const {handleBlur, handleSubmit, values} = this.props;
+        const superTypes = [{type: "Pokémon"}, {type: "Trainer"}, {type: "Energy"}];
 
         return (<form onSubmit={handleSubmit}>
             <FormGroup row>
@@ -42,169 +59,246 @@ class LibraryFilter extends Component {
                         'aria-label' : 'Cardname'
                     }} value={values.cardname} onChange={this.handleCustomChange} onBlur={handleBlur} />
             </FormGroup>
-            <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='supertype_pokemon'
-                      checked={values.supertype_pokemon}
-                      onChange={this.handleCustomChange}
-                      value="supertype_pokemon"
+            <FieldArray
+              name="supertypes"
+              render={arrayHelpers => (
+                <FormGroup row>
+                  {superTypes.map(supertype => (
+                    <FormControlLabel
+                      key={supertype.type}
+                      control={
+                        <Checkbox
+                          name="supertypes"
+                          checked={values.supertypes.includes(supertype.type)}
+                          value={supertype.type}
+                          onChange={e => {
+                            if (e.target.checked) arrayHelpers.push(supertype.type);
+                            else {
+                              const idx = values.supertypes.indexOf(supertype.type);
+                              arrayHelpers.remove(idx);
+                            }
+                            this.fieldArrayChange(e);
+                          }}
+                        />
+                      }
+                      label={supertype.type}
                     />
-                  }
-                  label="Pokemon"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='supertype_trainer'
-                      checked={values.supertype_trainer}
-                      onChange={this.handleCustomChange}
-                      value="supertype_trainer"
-                    />
-                  }
-                  label="Trainer"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='supertype_energy'
-                      checked={values.supertype_energy}
-                      onChange={this.handleCustomChange}
-                      value="supertype_energy"
-                    />
-                  }
-                  label="Energy"
-                />
-            </FormGroup>
+                  ))}
+                </FormGroup>
+              )}
+            />
             <Divider />
-            <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_colorless'
-                      checked={values.type_colorless}
-                      onChange={this.handleCustomChange}
-                      value="type_colorless"
-                    />
-                  }
-                  label="Colorless"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_darkness'
-                      checked={values.type_darkness}
-                      onChange={this.handleCustomChange}
-                      value="type_darkness"
-                    />
-                  }
-                  label="Darkness"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_dragon'
-                      checked={values.type_dragon}
-                      onChange={this.handleCustomChange}
-                      value="type_dragon"
-                    />
-                  }
-                  label="Dragon"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_fairy'
-                      checked={values.type_fairy}
-                      onChange={this.handleCustomChange}
-                      value="type_fairy"
-                    />
-                  }
-                  label="Fairy"
-                />
-            </FormGroup>
-            <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_fighting'
-                      checked={values.type_fighting}
-                      onChange={this.handleCustomChange}
-                      value="type_fighting"
-                    />
-                  }
-                  label="Fighting"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_fire'
-                      checked={values.type_fire}
-                      onChange={this.handleCustomChange}
-                      value="type_fire"
-                    />
-                  }
-                  label="Fire"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_grass'
-                      checked={values.type_grass}
-                      onChange={this.handleCustomChange}
-                      value="type_grass"
-                    />
-                  }
-                  label="Grass"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_lightning'
-                      checked={values.type_lightning}
-                      onChange={this.handleCustomChange}
-                      value="type_lightning"
-                    />
-                  }
-                  label="Lightning"
-                />
-            </FormGroup>
-            <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_metal'
-                      checked={values.type_metal}
-                      onChange={this.handleCustomChange}
-                      value="type_metal"
-                    />
-                  }
-                  label="Metal"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_psychic'
-                      checked={values.type_psychic}
-                      onChange={this.handleCustomChange}
-                      value="type_psychic"
-                    />
-                  }
-                  label="Psychic"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id='type_water'
-                      checked={values.type_water}
-                      onChange={this.handleCustomChange}
-                      value="type_water"
-                    />
-                  }
-                  label="Water"
-                />
-            </FormGroup>
+            <FieldArray
+              name="types"
+              render={arrayHelpers => (
+                <div>
+                    <FormGroup row>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Colorless")}
+                                value="Colorless"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Colorless");
+                                        else {
+                                            const idx = values.types.indexOf("Colorless");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Colorless"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Darkness")}
+                                value="Darkness"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Darkness");
+                                        else {
+                                            const idx = values.types.indexOf("Darkness");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Darkness"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Dragon")}
+                                value="Dragon"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Dragon");
+                                        else {
+                                            const idx = values.types.indexOf("Dragon");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Dragon"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Fairy")}
+                                value="Fairy"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Fairy");
+                                        else {
+                                            const idx = values.types.indexOf("Fairy");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Fairy"
+                        />
+                    </FormGroup>
+                    <FormGroup row>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Fighting")}
+                                value="Fighting"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Fighting");
+                                        else {
+                                            const idx = values.types.indexOf("Fighting");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Fighting"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Fire")}
+                                value="Fire"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Fire");
+                                        else {
+                                            const idx = values.types.indexOf("Fire");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Fire"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Grass")}
+                                value="Grass"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Grass");
+                                        else {
+                                            const idx = values.types.indexOf("Grass");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Grass"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Lightning")}
+                                value="Lightning"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Lightning");
+                                        else {
+                                            const idx = values.types.indexOf("Lightning");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Lightning"
+                        />
+                    </FormGroup>
+                    <FormGroup row>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Metal")}
+                                value="Metal"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Metal");
+                                        else {
+                                            const idx = values.types.indexOf("Metal");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Metal"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Psychic")}
+                                value="Psychic"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Psychic");
+                                        else {
+                                            const idx = values.types.indexOf("Psychic");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Psychic"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                name='types'
+                                checked={values.types.includes("Water")}
+                                value="Water"
+                                onChange={e => {
+                                        if (e.target.checked) arrayHelpers.push("Water");
+                                        else {
+                                            const idx = values.types.indexOf("Water");
+                                            arrayHelpers.remove(idx);
+                                        }
+                                        this.fieldArrayChange(e);
+                                    }}
+                                />
+                            }
+                            label="Water"
+                        />
+                    </FormGroup>
+                  </div>
+              )}
+             />
         </form>)
     }
 }

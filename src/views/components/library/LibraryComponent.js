@@ -8,6 +8,8 @@ import LibraryFilter from './LibraryFilter';
 import EnhancedTable from './LibraryEnhancedTable';
 import QueryRunning from '../common/QueryRunning';
 
+import buildQuery from '../../../db/querybuilder';
+
 class LibraryComponent extends Component {
 
     render(){
@@ -19,20 +21,8 @@ class LibraryComponent extends Component {
                         initialValues={{
                           cardname: '',
                           set: '',
-                          supertype_pokemon: true,
-                          supertype_trainer: true,
-                          supertype_energy: true,
-                          type_colorless: true,
-                          type_darkness: true,
-                          type_dragon: true,
-                          type_fairy: true,
-                          type_fighting: true,
-                          type_fire: true,
-                          type_grass: true,
-                          type_lightning: true,
-                          type_metal: true,
-                          type_psychic: true,
-                          type_water: true
+                          supertypes: ["Pokémon","Trainer","Energy"],
+                          types: ["Colorless", "Darkness", "Dragon", "Fairy", "Fighting", "Fire", "Grass", "Lightning", "Metal", "Psychic", "Water"]
                         }}
                         validate={(
                             values
@@ -42,7 +32,7 @@ class LibraryComponent extends Component {
                           { setSubmitting, setErrors }
                         ) => {
                             console.log(values);
-                            executeQuery({name: {$regex: ".*" + values.cardname + ".*"}})
+                            executeQuery(buildQuery(values));
                         }}
                         component={LibraryFilter} />
                 </Card>

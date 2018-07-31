@@ -29,7 +29,8 @@ export const schema = {
         }
     },
     supertype: {
-      type: 'string'
+      type: 'string',
+      index: true
     },
     subtype: {
       type: 'string'
@@ -90,7 +91,8 @@ export const schema = {
         "type": "string"
     },
     "setCode": {
-        "type": "string"
+        "type": "string",
+        index: true
     },
     "text": {
         "type": "array",
