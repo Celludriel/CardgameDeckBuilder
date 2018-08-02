@@ -10,7 +10,7 @@ class InfoCardComponent extends Component {
         return (
             <div>
                 <Card>
-                    <img alt='card' src={imageLocation} />
+                    <img alt='card' src={'atom:///' + imageLocation} />
                 </Card>
                 <Card>
                     == Cardinformation will come here ==

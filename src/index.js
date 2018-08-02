@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, protocol } from 'electron';
 import { enableLiveReload } from 'electron-compile';
 
 const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
@@ -23,8 +23,8 @@ function isPackaged() {
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1920,
+    height: 1080
   });
 
   // and load the index.html of the app.
@@ -53,7 +53,17 @@ const createWindow = async () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+// app.on('ready', createWindow);
+
+app.on('ready', () => {
+  protocol.registerFileProtocol('atom', (request, callback) => {
+    const url = request.url.substr(8)
+    callback({path: url})
+  }, (error) => {
+    if (error) console.error('Failed to register protocol')
+  })
+  createWindow();
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
