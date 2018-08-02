@@ -5,7 +5,8 @@ const INITIAL_STATE = {
     sets: [],
     isLoading: true,
     libraryRows: [],
-    runningQuery: false
+    runningQuery: false,
+    selectedCard: {}
 };
 
 const pokemonReducer = ( state = INITIAL_STATE, action ) => {
@@ -26,6 +27,12 @@ const pokemonReducer = ( state = INITIAL_STATE, action ) => {
             return Object.assign({}, state, {
                         libraryRows: action.result,
                         runningQuery: false
+                    });
+        }
+        case types.SELECT_CARD: {
+            let card = state.libraryRows.filter(row => row.id === action.payload.cardId)[0];
+            return Object.assign({}, state, {
+                        selectedCard: card
                     });
         }
         default: return state;

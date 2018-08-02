@@ -46,6 +46,29 @@ class LibraryEnhancedTable extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
+  handleClick = (event, id) => {
+    const { selected } = this.state;
+    const { selectCard } = this.props;
+
+    const selectedIndex = selected.indexOf(id);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, id);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1),
+      );
+    }
+
+    selectCard(newSelected[0]);
+  };
+
   render() {
     const { order, orderBy, rowsPerPage, page } = this.state;
     const { rows } = this.props;
@@ -70,6 +93,7 @@ class LibraryEnhancedTable extends React.Component {
                       hover
                       tabIndex={-1}
                       key={n.id}
+                      onClick={event => this.handleClick(event, n.id)}
                     >
                       <TableCell component="th" scope="row" padding="none">
                         {n.setCode}

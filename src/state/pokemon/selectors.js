@@ -17,3 +17,7 @@ export function isQueryRunning(state) {
 export function getSets(state) {
     return state.pokemon.sets;
 }
+
+export function getSelectedCard(state) {
+    return state.pokemon.selectedCard;
+}

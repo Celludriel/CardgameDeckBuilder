@@ -14,10 +14,6 @@ function onlyUniqueSet(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-function getSorting(order, orderBy) {
-  return (a, b) => (a < b ? -1 : 1);
-}
-
 async function loadDatabaseOperation(cb) {
     await RxDB.removeDatabase('carddb', 'idb');
 
@@ -47,7 +43,7 @@ async function loadDatabaseOperation(cb) {
     var allSets = data.cards.map(card => card.setCode);
     var sets = allSets.filter( onlyUniqueSet );
     sets.sort()
-    console.log(sets)
+
     cb(null, {db, sets});
 }
 

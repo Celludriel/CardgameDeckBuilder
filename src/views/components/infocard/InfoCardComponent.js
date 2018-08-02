@@ -9,6 +9,8 @@ const app = electron.remote.app;
 class InfoCardComponent extends Component {
 
     render(){
+        const { card } = this.props;
+        console.log(card);
         return (
             <div>
                 <Card>
