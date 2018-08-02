@@ -2,21 +2,22 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import InfoCardComponent from '../components/infocard/InfoCardComponent';
-import { getSelectedCard } from '../../state/pokemon/selectors';
+import { getSelectedCard, getCardImageLocation } from '../../state/pokemon/selectors';
 
 class InfoCardContainer extends Component {
 
     render(){
-        const { selectedCard } = this.props;
+        const { selectedCard, imageLocation } = this.props;
         return (
-            <InfoCardComponent card={selectedCard} />
+            <InfoCardComponent card={selectedCard} imageLocation={imageLocation} />
         )
     }
 }
 
 const mapStateToProps = state => {
   return {
-      selectedCard: getSelectedCard(state)
+      selectedCard: getSelectedCard(state),
+      imageLocation: getCardImageLocation(state)
   }
 }
 

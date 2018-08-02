@@ -21,3 +21,7 @@ export function getSets(state) {
 export function getSelectedCard(state) {
     return state.pokemon.selectedCard;
 }
+
+export function getCardImageLocation(state) {
+    return state.pokemon.cardImageLocation;
+}
