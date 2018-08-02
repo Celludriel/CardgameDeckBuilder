@@ -13,3 +13,7 @@ export function getDb(state) {
 export function isQueryRunning(state) {
     return state.pokemon.runningQuery;
 }
+
+export function getSets(state) {
+    return state.pokemon.sets;
+}

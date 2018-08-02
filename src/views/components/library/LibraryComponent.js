@@ -13,7 +13,7 @@ import buildQuery from '../../../db/querybuilder';
 class LibraryComponent extends Component {
 
     render(){
-        const { rows, executeQuery, isQueryRunning } = this.props;
+        const { rows, executeQuery, isQueryRunning, sets } = this.props;
         return (
             <div>
                 <Card>
@@ -22,7 +22,8 @@ class LibraryComponent extends Component {
                           cardname: '',
                           set: '',
                           supertypes: ["Pokémon","Trainer","Energy"],
-                          types: ["Colorless", "Darkness", "Dragon", "Fairy", "Fighting", "Fire", "Grass", "Lightning", "Metal", "Psychic", "Water"]
+                          types: ["Colorless", "Darkness", "Dragon", "Fairy", "Fighting", "Fire", "Grass", "Lightning", "Metal", "Psychic", "Water"],
+                          sets: sets
                         }}
                         validate={(
                             values

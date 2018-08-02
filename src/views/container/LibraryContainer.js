@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 
-import { getLibraryRows, getDb, isQueryRunning } from '../../state/pokemon/selectors'
+import { getLibraryRows, getDb, isQueryRunning, getSets } from '../../state/pokemon/selectors'
 import { startQueryAction } from '../../state/pokemon/actions'
 
 import LibraryComponent from '../components/library/LibraryComponent'
@@ -19,9 +19,9 @@ class LibraryContainer extends Component {
     }
 
     render(){
-        const { libraryRows, isQueryRunning } = this.props
+        const { libraryRows, isQueryRunning, sets } = this.props
         return (
-            <LibraryComponent rows={libraryRows} executeQuery={this.executeQuery} isQueryRunning={isQueryRunning} />
+            <LibraryComponent rows={libraryRows} executeQuery={this.executeQuery} isQueryRunning={isQueryRunning} sets={sets} />
         )
     }
 }
@@ -30,6 +30,7 @@ const mapStateToProps = state => {
   return {
       libraryRows: getLibraryRows(state),
       db: getDb(state),
+      sets: getSets(state),
       isQueryRunning: isQueryRunning(state)
   }
 }

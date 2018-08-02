@@ -10,6 +10,14 @@ RxDB.plugin(require('pouchdb-adapter-idb'));
 
 const dbName = 'carddb';
 
+function onlyUniqueSet(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+function getSorting(order, orderBy) {
+  return (a, b) => (a < b ? -1 : 1);
+}
+
 async function loadDatabaseOperation(cb) {
     await RxDB.removeDatabase('carddb', 'idb');
 
@@ -36,7 +44,11 @@ async function loadDatabaseOperation(cb) {
     const data = JSON.parse(fs.readFileSync(appPath + '/data/data.json', 'utf-8'));
     await db.cards.pouch.bulkDocs(data.cards);
 
-    cb(null, db);
+    var allSets = data.cards.map(card => card.setCode);
+    var sets = allSets.filter( onlyUniqueSet );
+    sets.sort()
+    console.log(sets)
+    cb(null, {db, sets});
 }
 
 async function executeQuery(query, db, cb) {

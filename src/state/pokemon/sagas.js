@@ -6,8 +6,8 @@ import { loadDatabaseOperation, executeQuery } from "./operations"
 
 export function* loadDatabase() {
     try {
-        const db = yield cps(loadDatabaseOperation)
-        yield put({ type: types.END_LOAD_DATABASE, db })
+        const payload = yield cps(loadDatabaseOperation)
+        yield put({ type: types.END_LOAD_DATABASE, payload })
     } catch (err) {
         console.log(err);
     }

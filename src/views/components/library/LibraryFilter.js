@@ -36,7 +36,6 @@ class LibraryFilter extends Component {
     render() {
         const {handleBlur, handleSubmit, values} = this.props;
         const superTypes = [{type: "Pokémon"}, {type: "Trainer"}, {type: "Energy"}];
-
         return (<form onSubmit={handleSubmit}>
             <FormGroup row>
                 <FormControl>
@@ -52,7 +51,7 @@ class LibraryFilter extends Component {
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            <MenuItem value={"ex8"}>ex8</MenuItem>
+                            {values.sets.map(set => <MenuItem key={set} value={set}>{set}</MenuItem>)}                            
                     </Select>
                 </FormControl>
                 <Input id="cardname" placeholder="Cardname" inputProps={{

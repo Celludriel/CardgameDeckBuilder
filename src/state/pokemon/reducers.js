@@ -2,6 +2,7 @@ import types from "./types";
 
 const INITIAL_STATE = {
     db: null,
+    sets: [],
     isLoading: true,
     libraryRows: [],
     runningQuery: false
@@ -11,7 +12,8 @@ const pokemonReducer = ( state = INITIAL_STATE, action ) => {
     switch( action.type ) {
         case types.END_LOAD_DATABASE: {
             return Object.assign({}, state, {
-                        db: action.db,
+                        db: action.payload.db,
+                        sets: action.payload.sets,
                         isLoading: false
                     });
         }
