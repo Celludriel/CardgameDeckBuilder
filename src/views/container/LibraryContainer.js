@@ -8,11 +8,6 @@ import LibraryComponent from '../components/library/LibraryComponent';
 
 class LibraryContainer extends Component {
 
-    componentDidMount(){
-        const { executeQueryDispatch, db } = this.props;
-        executeQueryDispatch({},db);
-    }
-
     executeQuery = ( query ) => {
         const { executeQueryDispatch, db } = this.props;
         executeQueryDispatch(query,db);

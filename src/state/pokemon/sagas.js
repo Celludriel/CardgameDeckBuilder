@@ -5,8 +5,10 @@ import { getSelectedCard } from '../../state/pokemon/selectors';
 
 export function* loadDatabase() {
     try {
-        const payload = yield cps(loadDatabaseOperation)
-        yield put({ type: types.END_LOAD_DATABASE, payload })
+        const endLoadDb = yield cps(loadDatabaseOperation);
+        const payload = yield cps(executeQuery, {}, endLoadDb.db);
+        yield put({ type: types.END_QUERY, payload });
+        yield put({ type: types.END_LOAD_DATABASE, endLoadDb });
     } catch (err) {
         console.log(err);
     }
@@ -15,8 +17,8 @@ export function* loadDatabase() {
 export function* doQuery(action) {
     try {
         const { query, db } = action.payload;
-        const payload = yield cps(executeQuery, query, db)
-        yield put({ type: types.END_QUERY, payload })
+        const payload = yield cps(executeQuery, query, db);
+        yield put({ type: types.END_QUERY, payload });
     } catch (err) {
         console.log(err);
     }
@@ -27,7 +29,7 @@ export function* selectOrSaveImage() {
         let card = yield select(getSelectedCard);
         const payload = yield call(getCardImageLocation, card);
         console.log(payload);
-        yield put({ type: types.SET_CARD_IMAGE, payload })
+        yield put({ type: types.SET_CARD_IMAGE, payload });
     } catch (err) {
         console.log(err);
     }
