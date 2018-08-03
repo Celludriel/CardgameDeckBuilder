@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Card from '@material-ui/core/Card';
+import InfoCard from './InfoCard';
 
 class InfoCardComponent extends Component {
 
@@ -13,7 +14,7 @@ class InfoCardComponent extends Component {
                     <img alt='card' src={'atom:///' + imageLocation} />
                 </Card>
                 <Card>
-                    == Cardinformation will come here ==
+                    <InfoCard card={card} />
                 </Card>
             </div>
         )

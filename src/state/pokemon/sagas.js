@@ -1,4 +1,4 @@
-import { put, takeEvery, cps, select, call } from 'redux-saga/effects'
+import { put, takeLatest, cps, select, call } from 'redux-saga/effects'
 import types from "./types"
 import { loadDatabaseOperation, executeQuery, getCardImageLocation } from "./operations"
 import { getSelectedCard } from '../../state/pokemon/selectors';
@@ -37,8 +37,8 @@ export function* selectOrSaveImage() {
 
 export function* pokemonSaga() {
   yield [
-      takeEvery(types.START_LOAD_DATABASE, loadDatabase),
-      takeEvery(types.START_QUERY, doQuery),
-      takeEvery(types.SELECT_CARD, selectOrSaveImage),
+      takeLatest(types.START_LOAD_DATABASE, loadDatabase),
+      takeLatest(types.START_QUERY, doQuery),
+      takeLatest(types.SELECT_CARD, selectOrSaveImage),
   ];
 }

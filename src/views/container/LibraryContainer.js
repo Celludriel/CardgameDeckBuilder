@@ -21,7 +21,7 @@ class LibraryContainer extends Component {
     render(){
         const { libraryRows, isQueryRunning, sets } = this.props
         return (
-            <LibraryComponent rows={libraryRows} executeQuery={this.executeQuery} isQueryRunning={isQueryRunning} sets={sets}
+            this.selectCard !== {} && <LibraryComponent rows={libraryRows} executeQuery={this.executeQuery} isQueryRunning={isQueryRunning} sets={sets}
                 selectCard={this.selectCard} />
         )
     }
