@@ -4,6 +4,8 @@ const START_QUERY = "app/pokemon/START_QUERY";
 const END_QUERY = "app/pokemon/END_QUERY";
 const SELECT_CARD = "app/pokemon/SELECT_CARD";
 const SET_CARD_IMAGE = "app/pokemon/SET_CARD_IMAGE";
+const START_LOAD_DECKS = "app/pokemon/START_LOAD_DECKS";
+const END_LOAD_DECKS = "app/pokemon/END_LOAD_DECKS";
 
 export default {
     START_LOAD_DATABASE,
@@ -11,5 +13,7 @@ export default {
     START_QUERY,
     END_QUERY,
     SELECT_CARD,
-    SET_CARD_IMAGE
+    SET_CARD_IMAGE,
+    START_LOAD_DECKS,
+    END_LOAD_DECKS
 };

@@ -23,7 +23,6 @@ async function loadDatabaseOperation(cb) {
     const db = await RxDB.create(
       {name: dbName, adapter: 'idb', password: '12345678'}
     );
-    console.dir(db);
 
     // show who's the leader in page's title
     db.waitForLeadership().then(() => {
@@ -37,7 +36,6 @@ async function loadDatabaseOperation(cb) {
     });
 
     const appPath = app.getAppPath();
-    console.log(appPath);
 
     const data = JSON.parse(fs.readFileSync(appPath + '/data/data.json', 'utf-8'));
     await db.cards.pouch.bulkDocs(data.cards);
@@ -75,7 +73,6 @@ fs.mkdirp = function(dirname) {
 function getCardImageLocation(card){
     let directory = app.getPath('userData') + "/cards/" + card.setCode + "/"
     let dest = directory + card.number + ".png";
-    console.log(dest);
 
     const fileExists = fs.existsSync(dest);
 
@@ -124,8 +121,22 @@ function getCardImageLocation(card){
     }
 }
 
+function getAvailableDecknames(){
+    let directory = app.getPath('userData') + "/decks";
+    let decknames = [];
+    fs.readdir(directory, (err, files) => {
+        if(files !== undefined){
+            files.forEach(function(file) {
+                decknames.push(file.replace(/\.[^/.]+$/, ""));
+            })
+        }
+    });
+    return decknames;
+}
+
 export {
     loadDatabaseOperation,
     executeQuery,
-    getCardImageLocation
+    getCardImageLocation,
+    getAvailableDecknames
 }

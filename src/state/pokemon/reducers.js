@@ -7,7 +7,9 @@ const INITIAL_STATE = {
     libraryRows: [],
     runningQuery: false,
     selectedCard: {},
-    cardImageLocation: ""
+    cardImageLocation: "",
+    selectedDeck: {name: "", cards: []},
+    decknames: []
 };
 
 const pokemonReducer = ( state = INITIAL_STATE, action ) => {
@@ -39,6 +41,11 @@ const pokemonReducer = ( state = INITIAL_STATE, action ) => {
         case types.SET_CARD_IMAGE: {
             return Object.assign({}, state, {
                         cardImageLocation: action.payload.imageLocation
+                    });
+        }
+        case types.END_LOAD_DECKS: {
+            return Object.assign({}, state, {
+                        decknames: action.payload
                     });
         }
         default: return state;

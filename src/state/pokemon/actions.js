@@ -33,10 +33,23 @@ const selectCardAction = (cardId) => ({
     }
 });
 
+const startLoadDecksAction = () => ({
+    type: types.START_LOAD_DECKS
+});
+
+const endLoadDecksAction = (decknames) => ({
+    type: types.END_LOAD_DECKS,
+    payload: {
+        decknames
+    }
+});
+
 export {
     startLoadDatabaseAction,
     endLoadDatabaseAction,
     startQueryAction,
     endQueryAction,
-    selectCardAction
+    selectCardAction,
+    startLoadDecksAction,
+    endLoadDecksAction
 };
