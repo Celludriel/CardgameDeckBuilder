@@ -1,21 +1,20 @@
 import React, {Component} from 'react';
 
 import Card from '@material-ui/core/Card';
-
-//Electron setup
-const electron = window.require('electron');
-const app = electron.remote.app;
+import InfoCard from './InfoCard';
 
 class InfoCardComponent extends Component {
 
     render(){
+        const { card, imageLocation } = this.props;
+        console.log(card);
         return (
             <div>
                 <Card>
-                    <img alt='card' src={app.getAppPath()  + '/data/test.png'} />
+                    <img alt='card' src={'atom:///' + imageLocation} />
                 </Card>
                 <Card>
-                    == Cardinformation will come here ==
+                    <InfoCard card={card} />
                 </Card>
             </div>
         )

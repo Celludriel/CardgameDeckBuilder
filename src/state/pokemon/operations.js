@@ -4,6 +4,8 @@ import { schema } from './../../db/Schema';
 //Electron setup
 const electron = window.require('electron');
 const fs = electron.remote.require('fs');
+const path = electron.remote.require('path')
+const https = electron.remote.require('https');
 const app = electron.remote.app;
 
 RxDB.plugin(require('pouchdb-adapter-idb'));
@@ -12,10 +14,6 @@ const dbName = 'carddb';
 
 function onlyUniqueSet(value, index, self) {
     return self.indexOf(value) === index;
-}
-
-function getSorting(order, orderBy) {
-  return (a, b) => (a < b ? -1 : 1);
 }
 
 async function loadDatabaseOperation(cb) {
@@ -47,7 +45,7 @@ async function loadDatabaseOperation(cb) {
     var allSets = data.cards.map(card => card.setCode);
     var sets = allSets.filter( onlyUniqueSet );
     sets.sort()
-    console.log(sets)
+
     cb(null, {db, sets});
 }
 
@@ -57,7 +55,77 @@ async function executeQuery(query, db, cb) {
         .then(documents => cb(null, documents));
 }
 
+
+fs.isDir = function(dpath) {
+    try {
+        return fs.lstatSync(dpath).isDirectory();
+    } catch(e) {
+        return false;
+    }
+};
+
+fs.mkdirp = function(dirname) {
+    dirname = path.normalize(dirname).split(path.sep);
+    dirname.forEach((sdir,index)=>{
+        var pathInQuestion = dirname.slice(0,index+1).join(path.sep);
+        if((!fs.isDir(pathInQuestion)) && pathInQuestion) fs.mkdirSync(pathInQuestion);
+    });
+};
+
+function getCardImageLocation(card){
+    let directory = app.getPath('userData') + "/cards/" + card.setCode + "/"
+    let dest = directory + card.number + ".png";
+    console.log(dest);
+
+    const fileExists = fs.existsSync(dest);
+
+    if(fileExists){
+        return new Promise((resolve, reject) => {
+            resolve({imageLocation: dest});
+        })
+    } else {
+        let url = card.imageUrl;
+
+        return new Promise((resolve, reject) => {
+            fs.mkdirp(directory);
+            const file = fs.createWriteStream(dest, { flags: "w" });
+
+            const request = https.get(url, response => {
+                if (response.statusCode === 200) {
+                    response.pipe(file);
+                } else {
+                    file.close();
+                    fs.unlink(dest, () => {}); // Delete temp file
+                    reject(`Server responded with ${response.statusCode}: ${response.statusMessage}`);
+                }
+            });
+
+            request.on("error", err => {
+                file.close();
+                fs.unlink(dest, () => {}); // Delete temp file
+                reject(err.message);
+            });
+
+            file.on("finish", () => {
+                resolve({imageLocation: dest});
+            });
+
+            file.on("error", err => {
+                file.close();
+
+                if (err.code === "EEXIST") {
+                    reject("File already exists");
+                } else {
+                    fs.unlink(dest, () => {}); // Delete temp file
+                    reject(err.message);
+                }
+            });
+        });
+    }
+}
+
 export {
     loadDatabaseOperation,
-    executeQuery
+    executeQuery,
+    getCardImageLocation
 }

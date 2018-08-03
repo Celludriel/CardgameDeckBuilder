@@ -1,13 +1,14 @@
-import { put, takeEvery, cps } from 'redux-saga/effects'
+import { put, takeLatest, cps, select, call } from 'redux-saga/effects'
 import types from "./types"
-import { loadDatabaseOperation, executeQuery } from "./operations"
-
-//const { result, components } = yield cps(cb => new Fingerprint2().get((result, components) => cb(null, { result, components })))
+import { loadDatabaseOperation, executeQuery, getCardImageLocation } from "./operations"
+import { getSelectedCard } from '../../state/pokemon/selectors';
 
 export function* loadDatabase() {
     try {
-        const payload = yield cps(loadDatabaseOperation)
-        yield put({ type: types.END_LOAD_DATABASE, payload })
+        const endLoadDb = yield cps(loadDatabaseOperation);
+        const payload = yield cps(executeQuery, {}, endLoadDb.db);
+        yield put({ type: types.END_QUERY, payload });
+        yield put({ type: types.END_LOAD_DATABASE, endLoadDb });
     } catch (err) {
         console.log(err);
     }
@@ -16,8 +17,19 @@ export function* loadDatabase() {
 export function* doQuery(action) {
     try {
         const { query, db } = action.payload;
-        const result = yield cps(executeQuery, query, db)
-        yield put({ type: types.END_QUERY, result })
+        const payload = yield cps(executeQuery, query, db);
+        yield put({ type: types.END_QUERY, payload });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export function* selectOrSaveImage() {
+    try {
+        let card = yield select(getSelectedCard);
+        const payload = yield call(getCardImageLocation, card);
+        console.log(payload);
+        yield put({ type: types.SET_CARD_IMAGE, payload });
     } catch (err) {
         console.log(err);
     }
@@ -25,7 +37,8 @@ export function* doQuery(action) {
 
 export function* pokemonSaga() {
   yield [
-      takeEvery(types.START_LOAD_DATABASE, loadDatabase),
-      takeEvery(types.START_QUERY, doQuery)
+      takeLatest(types.START_LOAD_DATABASE, loadDatabase),
+      takeLatest(types.START_QUERY, doQuery),
+      takeLatest(types.SELECT_CARD, selectOrSaveImage),
   ];
 }
