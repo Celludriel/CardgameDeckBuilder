@@ -48,6 +48,10 @@ const startSaveDeckAction = () => ({
     type: types.SAVE_DECK
 });
 
+const startDeleteDeckAction = () => ({
+    type: types.DELETE_DECK
+});
+
 const selectDeckAction = (deckname) => ({
     type: types.START_SELECT_DECK,
     payload: {
@@ -64,5 +68,6 @@ export {
     startLoadDecksAction,
     endLoadDecksAction,
     startSaveDeckAction,
+    startDeleteDeckAction,
     selectDeckAction
 };

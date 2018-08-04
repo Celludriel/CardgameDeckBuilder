@@ -146,6 +146,17 @@ function saveDeckToDisk(deck){
     }
 }
 
+function deleteDeckFromDisk(deck){
+    let directory = app.getPath('userData') + "/decks";
+    let filename = directory + "/" + deck.name + ".json";
+
+    try {
+        fs.unlinkSync(filename);
+    } catch(e) {
+        console.log(e);
+    }
+}
+
 function loadDeckFromDisk(deckname){
     let directory = app.getPath('userData') + "/decks";
     let filename = directory + "/" + deckname + ".json";
@@ -165,5 +176,6 @@ export {
     getCardImageLocation,
     getAvailableDecknames,
     saveDeckToDisk,
-    loadDeckFromDisk
+    loadDeckFromDisk,
+    deleteDeckFromDisk
 }

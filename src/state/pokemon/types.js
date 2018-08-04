@@ -7,6 +7,7 @@ const SET_CARD_IMAGE = "app/pokemon/SET_CARD_IMAGE";
 const START_LOAD_DECKS = "app/pokemon/START_LOAD_DECKS";
 const END_LOAD_DECKS = "app/pokemon/END_LOAD_DECKS";
 const SAVE_DECK = "app/pokemon/SAVE_DECK";
+const DELETE_DECK = "app/pokemon/DELETE_DECK";
 const START_SELECT_DECK = "app/pokemon/START_SELECT_DECK";
 const END_SELECT_DECK = "app/pokemon/END_SELECT_DECK";
 
@@ -20,6 +21,7 @@ export default {
     START_LOAD_DECKS,
     END_LOAD_DECKS,
     SAVE_DECK,
+    DELETE_DECK,
     START_SELECT_DECK,
     END_SELECT_DECK
 };
