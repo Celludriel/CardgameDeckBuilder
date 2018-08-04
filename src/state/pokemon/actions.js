@@ -44,11 +44,8 @@ const endLoadDecksAction = (decknames) => ({
     }
 });
 
-const startSaveDeckAction = (deckname) => ({
-    type: types.SAVE_DECK,
-    payload: {
-        deckname
-    }
+const startSaveDeckAction = () => ({
+    type: types.SAVE_DECK
 });
 
 export {

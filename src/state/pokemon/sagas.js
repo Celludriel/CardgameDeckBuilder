@@ -47,7 +47,7 @@ export function* loadDecks() {
 export function* saveDeck(deckname) {
     try {
         let currentDeck = yield select(getCurrentDeck);
-        yield call(saveDeckToDisk, deckname, currentDeck);
+        yield call(saveDeckToDisk, currentDeck);
     } catch (err) {
         console.log(err);
     }

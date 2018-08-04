@@ -133,9 +133,9 @@ function getAvailableDecknames(){
     return decknames;
 }
 
-function saveDeckToDisk(deckname, deck){
+function saveDeckToDisk(deck){
     let directory = app.getPath('userData') + "/decks";
-    let filename = directory + "/" + deckname + ".json";
+    let filename = directory + "/" + deck.name + ".json";
     let content = JSON.stringify(deck);
 
     try {

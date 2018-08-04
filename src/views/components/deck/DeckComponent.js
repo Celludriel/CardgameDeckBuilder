@@ -9,10 +9,10 @@ import DeckInformation from './DeckInformation'
 class DeckComponent extends Component {
 
     render(){
-        const { decknames } = this.props
+        const { decknames, saveDeckAction } = this.props
         return (
             <Paper>
-                <DeckPicker decknames={decknames} />
+                <DeckPicker decknames={decknames} saveDeckAction={saveDeckAction} />
                 <DeckContents />
                 <DeckInformation />
             </Paper>
