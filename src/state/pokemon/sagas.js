@@ -1,7 +1,7 @@
 import { put, takeLatest, cps, select, call } from 'redux-saga/effects'
 import types from "./types"
 import { loadDatabaseOperation, executeQuery, getCardImageLocation,
-    getAvailableDecknames, saveDeckToDisk } from "./operations"
+    getAvailableDecknames, saveDeckToDisk, loadDeckFromDisk } from "./operations"
 import { getSelectedCard, getCurrentDeck } from '../../state/pokemon/selectors';
 
 export function* loadDatabase() {
@@ -44,10 +44,19 @@ export function* loadDecks() {
     }
 }
 
-export function* saveDeck(deckname) {
+export function* saveDeck() {
     try {
         let currentDeck = yield select(getCurrentDeck);
         yield call(saveDeckToDisk, currentDeck);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export function* selectDeck(selectedDeck) {
+    try {
+        let payload = loadDeckFromDisk(selectedDeck.payload.deckname.value);
+        yield put({ type: types.END_SELECT_DECK, payload });
     } catch (err) {
         console.log(err);
     }
@@ -60,5 +69,6 @@ export function* pokemonSaga() {
       takeLatest(types.START_QUERY, doQuery),
       takeLatest(types.SELECT_CARD, selectOrSaveImage),
       takeLatest(types.SAVE_DECK, saveDeck),
+      takeLatest(types.START_SELECT_DECK, selectDeck),
   ];
 }

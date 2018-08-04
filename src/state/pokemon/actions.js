@@ -48,6 +48,13 @@ const startSaveDeckAction = () => ({
     type: types.SAVE_DECK
 });
 
+const selectDeckAction = (deckname) => ({
+    type: types.START_SELECT_DECK,
+    payload: {
+        deckname
+    }
+});
+
 export {
     startLoadDatabaseAction,
     endLoadDatabaseAction,
@@ -56,5 +63,6 @@ export {
     selectCardAction,
     startLoadDecksAction,
     endLoadDecksAction,
-    startSaveDeckAction
+    startSaveDeckAction,
+    selectDeckAction
 };

@@ -12,15 +12,15 @@ class DeckPicker extends Component {
     }
 
     render(){
-        const { decknames } = this.props;
+        const { decknames, selectDeck } = this.props;
         return (
             <div>
-                <DeckPickerSelect decknames={decknames} />
-                <Button variant="secondary" size="small" onClick={this.saveDeck} >
+                <DeckPickerSelect decknames={decknames} selectDeck={selectDeck} />
+                <Button variant="contained" size="small" >
                   <SaveIcon />
                   Delete
                 </Button>
-                <Button variant="primary" size="small" >
+                <Button variant="contained" size="small" onClick={this.saveDeck} >
                   <SaveIcon />
                   Save
                 </Button>

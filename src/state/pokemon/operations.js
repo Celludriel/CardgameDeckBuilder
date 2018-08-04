@@ -146,10 +146,24 @@ function saveDeckToDisk(deck){
     }
 }
 
+function loadDeckFromDisk(deckname){
+    let directory = app.getPath('userData') + "/decks";
+    let filename = directory + "/" + deckname + ".json";
+
+    try {
+      fs.accessSync(filename, fs.constants.R_OK);
+      let data = fs.readFileSync(filename);
+      return JSON.parse(data);
+    } catch (err) {
+      return {"name": deckname, "cards": []};
+    }
+}
+
 export {
     loadDatabaseOperation,
     executeQuery,
     getCardImageLocation,
     getAvailableDecknames,
-    saveDeckToDisk
+    saveDeckToDisk,
+    loadDeckFromDisk
 }
