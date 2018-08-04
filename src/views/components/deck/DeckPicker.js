@@ -6,21 +6,11 @@ import DeckPickerSelect from './DeckPickerSelect'
 
 class DeckPicker extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            deck: ''
-        }
-    }
-
-    handleChange = prop => event => {
-      this.setState({ [prop]: event.target.value });
-    };
-
     render(){
+        const { decknames } = this.props;
         return (
             <div>
-                <DeckPickerSelect />
+                <DeckPickerSelect decknames={decknames} />
                 <Button variant="contained" size="small" >
                   <SaveIcon />
                   Save

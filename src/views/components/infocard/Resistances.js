@@ -6,7 +6,6 @@ class Resistances extends Component {
 
     render(){
         const { resistances } = this.props;
-        console.log(resistances);
         return (
             resistances !== undefined && resistances.map((resistance,index) => {
                 return <div key={index}>

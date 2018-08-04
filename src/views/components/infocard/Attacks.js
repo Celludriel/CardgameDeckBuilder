@@ -6,7 +6,6 @@ class Attacks extends Component {
 
     render(){
         const { attacks } = this.props;
-        console.log(attacks);
         return (
             attacks !== undefined && attacks.map(attack => {
                 return <div key={attack.name}>

@@ -13,8 +13,9 @@ class DeckContainer extends Component {
     }
 
     render(){
+        const { decknames } = this.props
         return (
-            <DeckComponent />
+            <DeckComponent decknames={decknames} />
         )
     }
 }

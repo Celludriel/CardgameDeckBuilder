@@ -3,15 +3,6 @@ import React, {Component} from 'react';
 import Input from '@material-ui/core/Input';
 import CreatableSelect from 'react-select/lib/Creatable';
 
-const suggestions = [
-  { label: 'Deck 1' },
-  { label: 'Deck 2' },
-  { label: 'Deck 3' }
-].map(suggestion => ({
-  value: suggestion.label,
-  label: suggestion.label,
-}));
-
 function selectWrapped(props) {
   const { name, instanceId, simpleValue, options } = props;
   return (
@@ -37,6 +28,16 @@ class DeckPickerSelect extends Component {
   };
 
   render() {
+    const { decknames } = this.props;
+    let suggestions  = [];
+
+    decknames.forEach(function(deckname) {
+        suggestions.push({
+                "value": deckname,
+                "label": deckname
+        });
+    });
+
     return (
         <Input
             id="deck-selection"

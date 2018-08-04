@@ -10,7 +10,6 @@ class InfoCard extends Component {
 
     render(){
         const { card } = this.props;
-        console.log(card);
         return (
             <div>
                 <Typography variant="body1" gutterBottom align="right">
