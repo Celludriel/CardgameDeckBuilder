@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
@@ -7,10 +7,14 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const columnData = [
-  { id: 'cardname', numeric: false, disablePadding: true, label: 'Cardname' }
+  { id: 'cardname', numeric: false, disablePadding: true, label: 'Cardname' },
+  { id: 'supertype', numeric: false, disablePadding: true, label: 'Supertype' },
+  { id: 'subtype', numeric: false, disablePadding: true, label: 'Subtype' },
+  { id: 'types', numeric: false, disablePadding: true, label: 'Color' },
+  { id: 'amount', numeric: true, disablePadding: true, label: 'Amount' }
 ];
 
-class LibraryTableHead extends React.Component {
+class LibraryTableHead extends Component {
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
   };

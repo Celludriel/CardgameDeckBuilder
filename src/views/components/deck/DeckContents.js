@@ -5,9 +5,10 @@ import DeckEnhancedTable from './DeckEnhancedTable';
 class DeckContents extends Component {
 
     render(){
+        const { data } = this.props;
         return (
             <div>
-                <DeckEnhancedTable />
+                <DeckEnhancedTable data={data} />
             </div>
         )
     }

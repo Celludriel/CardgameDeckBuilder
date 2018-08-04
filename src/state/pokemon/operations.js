@@ -163,9 +163,9 @@ function loadDeckFromDisk(deckname){
 
     try {
       fs.accessSync(filename, fs.constants.R_OK);
-      let data = fs.readFileSync(filename);
-      return JSON.parse(data);
+      return JSON.parse(fs.readFileSync(filename, 'utf-8'));
     } catch (err) {
+      console.log(err);
       return {"name": deckname, "cards": []};
     }
 }

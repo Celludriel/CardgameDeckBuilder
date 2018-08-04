@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import DeckComponent from '../components/deck/DeckComponent'
-import { getDecknames } from '../../state/pokemon/selectors';
+import { getDecknames, getCurrentDeck } from '../../state/pokemon/selectors';
 import { startLoadDecksAction, startSaveDeckAction,
     selectDeckAction, startDeleteDeckAction } from '../../state/pokemon/actions';
 
@@ -29,17 +29,19 @@ class DeckContainer extends Component {
     }
 
     render(){
-        const { decknames } = this.props
+        const { decknames, currentDeck } = this.props
         return (
             <DeckComponent decknames={decknames} saveDeckAction={this.saveDeck}
-                deleteDeckAction={this.deleteDeck} selectDeck={this.selectDeck} />
+                deleteDeckAction={this.deleteDeck} selectDeck={this.selectDeck}
+                data={currentDeck.cards} />
         )
     }
 }
 
 const mapStateToProps = state => {
   return {
-      decknames: getDecknames(state)
+      decknames: getDecknames(state),
+      currentDeck: getCurrentDeck(state)
   }
 }
 

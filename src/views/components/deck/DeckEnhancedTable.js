@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,19 +7,13 @@ import Paper from '@material-ui/core/Paper';
 
 import DeckTableHead from './DeckTableHead';
 
-let counter = 0;
-function createData(cardname) {
-  counter += 1;
-  return { id: counter, cardname };
-}
-
 function getSorting(order, orderBy) {
   return order === 'desc'
     ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
     : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
 }
 
-class LibraryEnhancedTable extends React.Component {
+class DeckEnhancedTable extends Component {
   constructor(props) {
     super(props);
 
@@ -27,21 +21,6 @@ class LibraryEnhancedTable extends React.Component {
       order: 'asc',
       orderBy: 'cardname',
       selected: [],
-      data: [
-        createData('Cupcake'),
-        createData('Donut'),
-        createData('Eclair'),
-        createData('Frozen yoghurt'),
-        createData('Gingerbread'),
-        createData('Honeycomb'),
-        createData('Ice cream sandwich'),
-        createData('Jelly Bean'),
-        createData('KitKat'),
-        createData('Lollipop'),
-        createData('Marshmallow'),
-        createData('Nougat'),
-        createData('Oreo')
-      ],
       page: 0,
       rowsPerPage: 8,
     };
@@ -59,7 +38,8 @@ class LibraryEnhancedTable extends React.Component {
   };
 
   render() {
-    const { data, order, orderBy } = this.state;
+    const { data } = this.props;
+    const { order, orderBy } = this.state;
 
     return (
       <Paper>
@@ -81,7 +61,22 @@ class LibraryEnhancedTable extends React.Component {
                       key={n.id}
                     >
                       <TableCell component="th" scope="row" padding="none">
-                        {n.cardname}
+                        {n.setCode}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.name}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.supertype}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.subtype}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.types}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.amount}
                       </TableCell>
                     </TableRow>
                   );
@@ -94,4 +89,4 @@ class LibraryEnhancedTable extends React.Component {
   }
 }
 
-export default LibraryEnhancedTable;
+export default DeckEnhancedTable;
