@@ -47,7 +47,10 @@ export function* loadDecks() {
 export function* saveDeck() {
     try {
         let currentDeck = yield select(getCurrentDeck);
-        yield call(saveDeckToDisk, currentDeck);
+        if(currentDeck.name !== ""){
+            yield call(saveDeckToDisk, currentDeck);
+            yield put({ type: types.START_LOAD_DECKS });
+        }
     } catch (err) {
         console.log(err);
     }
@@ -55,8 +58,13 @@ export function* saveDeck() {
 
 export function* selectDeck(selectedDeck) {
     try {
-        let payload = loadDeckFromDisk(selectedDeck.payload.deckname.value);
-        yield put({ type: types.END_SELECT_DECK, payload });
+        if(selectedDeck.payload.deckname !== null){
+            let payload = loadDeckFromDisk(selectedDeck.payload.deckname.value);
+            yield put({ type: types.END_SELECT_DECK, payload });
+        } else {
+            let payload = {"name": "", "cards": []};
+            yield put({ type: types.END_SELECT_DECK, payload });
+        }
     } catch (err) {
         console.log(err);
     }
