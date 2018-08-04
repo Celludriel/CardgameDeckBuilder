@@ -8,7 +8,7 @@ const INITIAL_STATE = {
     runningQuery: false,
     selectedCard: {},
     cardImageLocation: "",
-    selectedDeck: {name: "", cards: []},
+    currentDeck: {name: "", cards: []},
     decknames: []
 };
 

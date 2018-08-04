@@ -124,19 +124,32 @@ function getCardImageLocation(card){
 function getAvailableDecknames(){
     let directory = app.getPath('userData') + "/decks";
     let decknames = [];
-    fs.readdir(directory, (err, files) => {
-        if(files !== undefined){
-            files.forEach(function(file) {
-                decknames.push(file.replace(/\.[^/.]+$/, ""));
-            })
-        }
-    });
+    var files = fs.readdirSync(directory);
+    if(files !== undefined){
+        files.forEach(function(file) {
+            decknames.push(file.replace(/\.[^/.]+$/, ""));
+        })
+    }
     return decknames;
+}
+
+function saveDeckToDisk(deckname, deck){
+    let directory = app.getPath('userData') + "/decks";
+    let filename = directory + "/" + deckname + ".json";
+    let content = JSON.stringify(deck);
+
+    try {
+        fs.writeFileSync(filename, content, 'utf-8');
+    }
+    catch(e) {
+        console.log(e);
+    }
 }
 
 export {
     loadDatabaseOperation,
     executeQuery,
     getCardImageLocation,
-    getAvailableDecknames
+    getAvailableDecknames,
+    saveDeckToDisk
 }
