@@ -27,7 +27,7 @@ const endQueryAction = (db) => ({
 });
 
 const selectCardAction = (cardId) => ({
-    type: types.SELECT_CARD,
+    type: types.START_SELECT_CARD,
     payload: {
         cardId
     }

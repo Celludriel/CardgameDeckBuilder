@@ -32,15 +32,10 @@ const pokemonReducer = ( state = INITIAL_STATE, action ) => {
                         runningQuery: false
                     });
         }
-        case types.SELECT_CARD: {
-            let card = state.libraryRows.filter(row => row.id === action.payload.cardId)[0];
+        case types.END_SELECT_CARD: {
             return Object.assign({}, state, {
-                        selectedCard: card
-                    });
-        }
-        case types.SET_CARD_IMAGE: {
-            return Object.assign({}, state, {
-                        cardImageLocation: action.payload.imageLocation
+                        selectedCard: action.payload.card,
+                        cardImageLocation: action.payload.cardimage.imageLocation
                     });
         }
         case types.END_LOAD_DECKS: {

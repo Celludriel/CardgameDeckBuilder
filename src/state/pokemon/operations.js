@@ -53,6 +53,11 @@ async function executeQuery(query, db, cb) {
         .then(documents => cb(null, documents));
 }
 
+async function findCardById(cardId, db, cb) {
+    await db.cards.findOne({id: {$eq : cardId}})
+        .exec()
+        .then(documents => cb(null, documents));
+}
 
 fs.isDir = function(dpath) {
     try {
@@ -173,6 +178,7 @@ function loadDeckFromDisk(deckname){
 export {
     loadDatabaseOperation,
     executeQuery,
+    findCardById,
     getCardImageLocation,
     getAvailableDecknames,
     saveDeckToDisk,

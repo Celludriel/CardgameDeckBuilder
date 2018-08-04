@@ -2,13 +2,14 @@ import { put, takeLatest, cps, select, call } from 'redux-saga/effects'
 import types from "./types"
 import { loadDatabaseOperation, executeQuery, getCardImageLocation,
     getAvailableDecknames, saveDeckToDisk, loadDeckFromDisk,
-    deleteDeckFromDisk } from "./operations"
-import { getSelectedCard, getCurrentDeck } from '../../state/pokemon/selectors';
+    deleteDeckFromDisk, findCardById } from "./operations"
+import { getCurrentDeck, getDb } from '../../state/pokemon/selectors';
 
 export function* loadDatabase() {
     try {
         const endLoadDb = yield cps(loadDatabaseOperation);
         const payload = yield cps(executeQuery, {}, endLoadDb.db);
+        yield cps(findCardById, "base1-1", endLoadDb.db);
         yield put({ type: types.END_QUERY, payload });
         yield put({ type: types.END_LOAD_DATABASE, endLoadDb });
     } catch (err) {
@@ -26,11 +27,15 @@ export function* doQuery(action) {
     }
 }
 
-export function* selectOrSaveImage() {
+export function* selectOrSaveImage(action) {
     try {
-        let card = yield select(getSelectedCard);
-        const payload = yield call(getCardImageLocation, card);
-        yield put({ type: types.SET_CARD_IMAGE, payload });
+        let card = action.card
+        const cardimage = yield call(getCardImageLocation, card);
+        const payload = {
+            "card": card,
+            "cardimage": cardimage
+        }
+        yield put({ type: types.END_SELECT_CARD, payload });
     } catch (err) {
         console.log(err);
     }
@@ -83,14 +88,26 @@ export function* selectDeck(selectedDeck) {
     }
 }
 
+export function* selectCard(action) {
+    try {
+        const { cardId } = action.payload;
+        let db = yield select(getDb);
+        const card = yield cps(findCardById, cardId, db);
+        yield put({ type: types.SET_CARD_IMAGE, card });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export function* pokemonSaga() {
   yield [
       takeLatest(types.START_LOAD_DATABASE, loadDatabase),
       takeLatest(types.START_LOAD_DECKS, loadDecks),
       takeLatest(types.START_QUERY, doQuery),
-      takeLatest(types.SELECT_CARD, selectOrSaveImage),
       takeLatest(types.SAVE_DECK, saveDeck),
       takeLatest(types.DELETE_DECK, deleteDeck),
       takeLatest(types.START_SELECT_DECK, selectDeck),
+      takeLatest(types.START_SELECT_CARD, selectCard),
+      takeLatest(types.SET_CARD_IMAGE, selectOrSaveImage)
   ];
 }
