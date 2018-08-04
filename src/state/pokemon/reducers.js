@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     isLoading: true,
     libraryRows: [],
     runningQuery: false,
-    selectedCard: {},
+    selectedCard: null,
     cardImageLocation: "",
     currentDeck: {name: "", cards: []},
     decknames: []
