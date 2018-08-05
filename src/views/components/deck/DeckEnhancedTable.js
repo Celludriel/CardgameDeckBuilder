@@ -60,9 +60,22 @@ class DeckEnhancedTable extends Component {
     selectCard(newSelected[0]);
   };
 
+  normalizeData = (data) => {
+      let entries = Object.entries(data);
+      let returnValue = [];
+      entries.forEach(
+      	function(entry){
+          entry[1].id = entry[0];
+          returnValue.push(entry[1]);
+        }
+      )
+      return returnValue;
+  }
+
   render() {
     const { data } = this.props;
     const { order, orderBy } = this.state;
+    let tableData = this.normalizeData(data);
 
     return (
       <Paper>
@@ -74,7 +87,7 @@ class DeckEnhancedTable extends Component {
               onRequestSort={this.handleRequestSort}
             />
             <TableBody>
-              {data
+              {tableData
                 .sort(getSorting(order, orderBy))
                 .map(n => {
                   return (

@@ -8,7 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const columnData = [
   { id: 'setCode', numeric: false, disablePadding: true, label: 'Set' },
-  { id: 'cardname', numeric: false, disablePadding: true, label: 'Cardname' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'Cardname' },
   { id: 'supertype', numeric: false, disablePadding: true, label: 'Supertype' },
   { id: 'subtype', numeric: false, disablePadding: true, label: 'Subtype' },
   { id: 'types', numeric: false, disablePadding: true, label: 'Color' },
