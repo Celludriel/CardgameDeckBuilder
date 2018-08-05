@@ -11,7 +11,7 @@ class NeededEnergyChart extends Component {
         let entries = Object.entries(data);
         entries.forEach(entry => {
             let attacks = entry[1].attacks;
-            if(attacks !== undefined){
+            if(attacks.length > 0){
                 let costs = [];
                 attacks.forEach(attack => {
                     costs.push(attack.cost)
