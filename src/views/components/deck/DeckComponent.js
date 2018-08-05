@@ -21,7 +21,7 @@ class DeckComponent extends Component {
                 <DeckContents data={data}
                     selectCard={selectCard}
                     removeCardFromDeck={removeCardFromDeck} />
-                <DeckInformation />
+                <DeckInformation data={data} />
             </Paper>
         )
     }
