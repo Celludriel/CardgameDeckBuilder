@@ -4,6 +4,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button'
+import RemoveIcon from '@material-ui/icons/Remove'
 
 import DeckTableHead from './DeckTableHead';
 
@@ -60,6 +62,11 @@ class DeckEnhancedTable extends Component {
     selectCard(newSelected[0]);
   };
 
+  removeCardFromDeck = (event, id) => {
+    const { removeCardFromDeck } = this.props;
+    removeCardFromDeck(id);
+  };
+
   normalizeData = (data) => {
       let entries = Object.entries(data);
       let returnValue = [];
@@ -97,6 +104,11 @@ class DeckEnhancedTable extends Component {
                       key={n.id}
                       onClick={event => this.handleClick(event, n.id)}
                     >
+                      <TableCell component="th" scope="row" padding="none">
+                          <Button variant="contained" size="small" onClick={event => this.removeCardFromDeck(event, n.id)} >
+                            <RemoveIcon />
+                          </Button>
+                      </TableCell>
                       <TableCell component="th" scope="row" padding="none">
                         {n.setCode}
                       </TableCell>

@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import DeckComponent from '../components/deck/DeckComponent'
 import { getDecknames, getCurrentDeck } from '../../state/pokemon/selectors';
 import { startLoadDecksAction, startSaveDeckAction,
-    selectDeckAction, startDeleteDeckAction, selectCardAction } from '../../state/pokemon/actions';
+    selectDeckAction, startDeleteDeckAction, selectCardAction,
+    removeCardFromDeckAction } from '../../state/pokemon/actions';
 
 class DeckContainer extends Component {
 
@@ -33,12 +34,18 @@ class DeckContainer extends Component {
         executeSelectCard(cardId);
     }
 
+    removeCardFromDeck = (cardId) => {
+        const { executeRemoveCardFromDeckAction } = this.props;
+        executeRemoveCardFromDeckAction(cardId);
+    }
+
     render(){
         const { decknames, currentDeck } = this.props
         return (
             <DeckComponent decknames={decknames} saveDeckAction={this.saveDeck}
                 deleteDeckAction={this.deleteDeck} selectDeck={this.selectDeck}
-                data={currentDeck.cards} selectCard={this.selectCard} />
+                data={currentDeck.cards} selectCard={this.selectCard}
+                removeCardFromDeck={this.removeCardFromDeck} />
         )
     }
 }
@@ -66,6 +73,9 @@ const mapDispatchToProps = dispatch => {
       },
       executeSelectCard: (cardId) => {
           dispatch(selectCardAction(cardId))
+      },
+      executeRemoveCardFromDeckAction: (cardId) => {
+          dispatch(removeCardFromDeckAction(cardId))
       }
   }
 }

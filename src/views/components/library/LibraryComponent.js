@@ -13,7 +13,8 @@ import buildQuery from '../../../db/querybuilder';
 class LibraryComponent extends Component {
 
     render(){
-        const { rows, executeQuery, isQueryRunning, sets, selectCard } = this.props;
+        const { rows, executeQuery, isQueryRunning, sets, selectCard,
+            addCardToDeck } = this.props;
         return (
             <div>
                 <Card>
@@ -38,7 +39,7 @@ class LibraryComponent extends Component {
                         component={LibraryFilter} />
                 </Card>
                 <Divider />
-                {!isQueryRunning && <LibraryEnhancedTable rows={rows} selectCard={selectCard} />}
+                {!isQueryRunning && <LibraryEnhancedTable rows={rows} selectCard={selectCard} addCardToDeck={addCardToDeck} />}
                 {isQueryRunning && <QueryRunning />}
             </div>
         )

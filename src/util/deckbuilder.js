@@ -1,4 +1,4 @@
-export function addCardToDeck(card, deck){
+export function addCardToDeckHelper(card, deck){
     if(cardExistInDeck(card.id, deck)){
         return increaseCardAmount(card.id, deck)
     } else {
@@ -6,7 +6,7 @@ export function addCardToDeck(card, deck){
     }
 }
 
-export function removeCardFromDeck(card, deck){
+export function removeCardFromDeckHelper(card, deck){
     if(lastCardInDeck(card.id, deck)){
         return removeCardFromDeckList(card.id, deck)
     } else {

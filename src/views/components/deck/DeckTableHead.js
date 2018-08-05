@@ -25,30 +25,38 @@ class LibraryTableHead extends Component {
 
     return (
       <TableHead>
+
         <TableRow>
-          {columnData.map(column => {
-            return (
-              <TableCell
-                key={column.id}
-                numeric={column.numeric}
-                padding={column.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === column.id ? order : false}
-              >
-                <Tooltip
-                  title="Sort"
-                  placement={column.numeric ? 'bottom-end' : 'bottom-start'}
-                  enterDelay={300}
-                >
-                  <TableSortLabel
-                    active={orderBy === column.id}
-                    direction={order}
-                    onClick={this.createSortHandler(column.id)}
+            <TableCell
+              key={'action'}
+              numeric={false}
+              padding={'none'}
+            >
+              Action
+            </TableCell>
+            {columnData.map(column => {
+                return (
+                  <TableCell
+                    key={column.id}
+                    numeric={column.numeric}
+                    padding={column.disablePadding ? 'none' : 'default'}
+                    sortDirection={orderBy === column.id ? order : false}
                   >
-                    {column.label}
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-            );
+                    <Tooltip
+                      title="Sort"
+                      placement={column.numeric ? 'bottom-end' : 'bottom-start'}
+                      enterDelay={300}
+                    >
+                      <TableSortLabel
+                        active={orderBy === column.id}
+                        direction={order}
+                        onClick={this.createSortHandler(column.id)}
+                      >
+                        {column.label}
+                      </TableSortLabel>
+                    </Tooltip>
+                  </TableCell>
+                );
           }, this)}
         </TableRow>
       </TableHead>
