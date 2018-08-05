@@ -24,7 +24,6 @@ class LibraryFilter extends Component {
     }
 
     typesChange = (e, arrayHelpers, values, type) => {
-      console.log(this)
       if (e.target.checked) arrayHelpers.push(type);
       else {
         const idx = values.types.indexOf(type);
@@ -51,7 +50,7 @@ class LibraryFilter extends Component {
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            {values.sets.map(set => <MenuItem key={set} value={set}>{set}</MenuItem>)}                            
+                            {values.sets.map(set => <MenuItem key={set} value={set}>{set}</MenuItem>)}
                     </Select>
                 </FormControl>
                 <Input id="cardname" placeholder="Cardname" inputProps={{

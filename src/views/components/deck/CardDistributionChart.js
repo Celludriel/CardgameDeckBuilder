@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryTooltip } from 'victory';
 
 import Card from '@material-ui/core/Card';
 
@@ -21,9 +21,9 @@ class CardDistributionChart extends Component {
         })
 
         return [
-            {"type": "Pokémon", "cards": pokemonCards},
-            {"type": "Trainer", "cards": trainerCards},
-            {"type": "Energy", "cards": energyCards}
+            {"type": "Pokémon", "cards": pokemonCards, "label": pokemonCards},
+            {"type": "Trainer", "cards": trainerCards, "label": trainerCards},
+            {"type": "Energy", "cards": energyCards, "label": energyCards}
         ];
     }
 
@@ -37,6 +37,7 @@ class CardDistributionChart extends Component {
                     <VictoryAxis />
                     <VictoryAxis dependentAxis />
                     <VictoryBar
+                      labelComponent={<VictoryTooltip/>}
                       data={chartData}
                       x="type"
                       y="cards"

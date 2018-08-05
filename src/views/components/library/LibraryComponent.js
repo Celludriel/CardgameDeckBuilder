@@ -33,7 +33,6 @@ class LibraryComponent extends Component {
                           values,
                           { setSubmitting, setErrors }
                         ) => {
-                            console.log(values);
                             executeQuery(buildQuery(values));
                         }}
                         component={LibraryFilter} />
