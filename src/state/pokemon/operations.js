@@ -1,6 +1,9 @@
 import * as RxDB from 'rxdb';
 import { schema } from './../../db/Schema';
 
+import { addCardToDeckHelper,
+    removeCardFromDeckHelper } from './../../util/deckbuilder';
+
 //Electron setup
 const electron = window.require('electron');
 const fs = electron.remote.require('fs');
@@ -23,7 +26,6 @@ async function loadDatabaseOperation(cb) {
     const db = await RxDB.create(
       {name: dbName, adapter: 'idb', password: '12345678'}
     );
-    console.dir(db);
 
     // show who's the leader in page's title
     db.waitForLeadership().then(() => {
@@ -37,7 +39,6 @@ async function loadDatabaseOperation(cb) {
     });
 
     const appPath = app.getAppPath();
-    console.log(appPath);
 
     const data = JSON.parse(fs.readFileSync(appPath + '/data/data.json', 'utf-8'));
     await db.cards.pouch.bulkDocs(data.cards);
@@ -55,6 +56,11 @@ async function executeQuery(query, db, cb) {
         .then(documents => cb(null, documents));
 }
 
+async function findCardById(cardId, db, cb) {
+    await db.cards.findOne({id: {$eq : cardId}})
+        .exec()
+        .then(documents => cb(null, documents));
+}
 
 fs.isDir = function(dpath) {
     try {
@@ -75,7 +81,6 @@ fs.mkdirp = function(dirname) {
 function getCardImageLocation(card){
     let directory = app.getPath('userData') + "/cards/" + card.setCode + "/"
     let dest = directory + card.number + ".png";
-    console.log(dest);
 
     const fileExists = fs.existsSync(dest);
 
@@ -124,8 +129,72 @@ function getCardImageLocation(card){
     }
 }
 
+function getAvailableDecknames(){
+    let directory = app.getPath('userData') + "/decks";
+    let decknames = [];
+    var files = fs.readdirSync(directory);
+    if(files !== undefined){
+        files.forEach(function(file) {
+            decknames.push(file.replace(/\.[^/.]+$/, ""));
+        })
+    }
+    return decknames;
+}
+
+function saveDeckToDisk(deck){
+    let directory = app.getPath('userData') + "/decks";
+    let filename = directory + "/" + deck.name + ".json";
+    let content = JSON.stringify(deck);
+
+    try {
+        fs.writeFileSync(filename, content, 'utf-8');
+    }
+    catch(e) {
+        console.log(e);
+    }
+}
+
+function deleteDeckFromDisk(deck){
+    let directory = app.getPath('userData') + "/decks";
+    let filename = directory + "/" + deck.name + ".json";
+
+    try {
+        fs.unlinkSync(filename);
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+function loadDeckFromDisk(deckname){
+    let directory = app.getPath('userData') + "/decks";
+    let filename = directory + "/" + deckname + ".json";
+
+    try {
+      fs.accessSync(filename, fs.constants.R_OK);
+      return JSON.parse(fs.readFileSync(filename, 'utf-8'));
+    } catch (err) {
+      console.log(err);
+      return {"name": deckname, "cards": []};
+    }
+}
+
+function addCardToDeck(card, deck){
+    return addCardToDeckHelper(card, deck);
+}
+
+function removeCardFromDeck(card, deck){
+    return removeCardFromDeckHelper(card, deck);
+}
+
 export {
     loadDatabaseOperation,
     executeQuery,
-    getCardImageLocation
+    findCardById,
+    getCardImageLocation,
+    getAvailableDecknames,
+    saveDeckToDisk,
+    loadDeckFromDisk,
+    deleteDeckFromDisk,
+    addCardToDeck,
+    removeCardFromDeck,
 }

@@ -6,8 +6,10 @@ const INITIAL_STATE = {
     isLoading: true,
     libraryRows: [],
     runningQuery: false,
-    selectedCard: {},
-    cardImageLocation: ""
+    selectedCard: null,
+    cardImageLocation: "",
+    currentDeck: {name: "", cards: []},
+    decknames: []
 };
 
 const pokemonReducer = ( state = INITIAL_STATE, action ) => {
@@ -30,16 +32,28 @@ const pokemonReducer = ( state = INITIAL_STATE, action ) => {
                         runningQuery: false
                     });
         }
-        case types.SELECT_CARD: {
-            let card = state.libraryRows.filter(row => row.id === action.payload.cardId)[0];
+        case types.END_SELECT_CARD: {
             return Object.assign({}, state, {
-                        selectedCard: card
+                        selectedCard: action.payload.card,
+                        cardImageLocation: action.payload.cardimage.imageLocation
                     });
         }
-        case types.SET_CARD_IMAGE: {
+        case types.END_LOAD_DECKS: {
             return Object.assign({}, state, {
-                        cardImageLocation: action.payload.imageLocation
+                        decknames: action.payload
                     });
+        }
+        case types.END_SELECT_DECK: {
+            return Object.assign({}, state, {
+                        currentDeck: action.payload
+                    });
+        }
+        case types.DECK_UPDATE: {
+            return Object.assign({}, state, {
+                currentDeck: Object.assign({}, state.currentDeck, {
+                    cards: action.payload
+                })
+            });
         }
         default: return state;
     }

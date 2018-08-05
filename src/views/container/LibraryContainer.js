@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import { getLibraryRows, getDb, isQueryRunning, getSets } from '../../state/pokemon/selectors';
-import { startQueryAction, selectCardAction } from '../../state/pokemon/actions';
+import { startQueryAction, selectCardAction, addCardToDeckAction } from '../../state/pokemon/actions';
 
 import LibraryComponent from '../components/library/LibraryComponent';
 
@@ -18,11 +18,16 @@ class LibraryContainer extends Component {
         executeSelectCard(cardId);
     }
 
+    addCardToDeck = (cardId) => {
+        const { executeAddCardToDeckAction } = this.props;
+        executeAddCardToDeckAction(cardId);
+    }
+
     render(){
         const { libraryRows, isQueryRunning, sets } = this.props
         return (
             this.selectCard !== {} && <LibraryComponent rows={libraryRows} executeQuery={this.executeQuery} isQueryRunning={isQueryRunning} sets={sets}
-                selectCard={this.selectCard} />
+                selectCard={this.selectCard} addCardToDeck={this.addCardToDeck} />
         )
     }
 }
@@ -43,6 +48,9 @@ const mapDispatchToProps = dispatch => {
     },
     executeSelectCard: (cardId) => {
         dispatch(selectCardAction(cardId))
+    },
+    executeAddCardToDeckAction: (cardId) => {
+        dispatch(addCardToDeckAction(cardId))
     }
   }
 }

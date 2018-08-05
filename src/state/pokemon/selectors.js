@@ -25,3 +25,11 @@ export function getSelectedCard(state) {
 export function getCardImageLocation(state) {
     return state.pokemon.cardImageLocation;
 }
+
+export function getDecknames(state) {
+    return state.pokemon.decknames;
+}
+
+export function getCurrentDeck(state) {
+    return state.pokemon.currentDeck;
+}

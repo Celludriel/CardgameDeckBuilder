@@ -7,7 +7,6 @@ class InfoCardComponent extends Component {
 
     render(){
         const { card, imageLocation } = this.props;
-        console.log(card);
         return (
             <div>
                 <Card>

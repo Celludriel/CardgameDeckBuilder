@@ -9,7 +9,8 @@ class InfoCardContainer extends Component {
     render(){
         const { selectedCard, imageLocation } = this.props;
         return (
-            <InfoCardComponent card={selectedCard} imageLocation={imageLocation} />
+            selectedCard !== null
+                && <InfoCardComponent card={selectedCard} imageLocation={imageLocation} />
         )
     }
 }

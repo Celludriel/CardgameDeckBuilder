@@ -6,7 +6,6 @@ class Weaknesses extends Component {
 
     render(){
         const { weaknesses } = this.props;
-        console.log(weaknesses);
         return (
             weaknesses !== undefined && weaknesses.map((weakness,index) => {
                 return <div key={index}>

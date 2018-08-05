@@ -1,17 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button'
+import RemoveIcon from '@material-ui/icons/Remove'
 
 import DeckTableHead from './DeckTableHead';
-
-let counter = 0;
-function createData(cardname) {
-  counter += 1;
-  return { id: counter, cardname };
-}
 
 function getSorting(order, orderBy) {
   return order === 'desc'
@@ -19,7 +15,7 @@ function getSorting(order, orderBy) {
     : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
 }
 
-class LibraryEnhancedTable extends React.Component {
+class DeckEnhancedTable extends Component {
   constructor(props) {
     super(props);
 
@@ -27,21 +23,6 @@ class LibraryEnhancedTable extends React.Component {
       order: 'asc',
       orderBy: 'cardname',
       selected: [],
-      data: [
-        createData('Cupcake'),
-        createData('Donut'),
-        createData('Eclair'),
-        createData('Frozen yoghurt'),
-        createData('Gingerbread'),
-        createData('Honeycomb'),
-        createData('Ice cream sandwich'),
-        createData('Jelly Bean'),
-        createData('KitKat'),
-        createData('Lollipop'),
-        createData('Marshmallow'),
-        createData('Nougat'),
-        createData('Oreo')
-      ],
       page: 0,
       rowsPerPage: 8,
     };
@@ -58,8 +39,50 @@ class LibraryEnhancedTable extends React.Component {
     this.setState({ order, orderBy });
   };
 
+  handleClick = (event, id) => {
+    const { selected } = this.state;
+    const { selectCard } = this.props;
+
+    const selectedIndex = selected.indexOf(id);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, id);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1),
+      );
+    }
+
+    selectCard(newSelected[0]);
+  };
+
+  removeCardFromDeck = (event, id) => {
+    const { removeCardFromDeck } = this.props;
+    removeCardFromDeck(id);
+  };
+
+  normalizeData = (data) => {
+      let entries = Object.entries(data);
+      let returnValue = [];
+      entries.forEach(
+      	function(entry){
+          entry[1].id = entry[0];
+          returnValue.push(entry[1]);
+        }
+      )
+      return returnValue;
+  }
+
   render() {
-    const { data, order, orderBy } = this.state;
+    const { data } = this.props;
+    const { order, orderBy } = this.state;
+    let tableData = this.normalizeData(data);
 
     return (
       <Paper>
@@ -71,7 +94,7 @@ class LibraryEnhancedTable extends React.Component {
               onRequestSort={this.handleRequestSort}
             />
             <TableBody>
-              {data
+              {tableData
                 .sort(getSorting(order, orderBy))
                 .map(n => {
                   return (
@@ -79,9 +102,30 @@ class LibraryEnhancedTable extends React.Component {
                       hover
                       tabIndex={-1}
                       key={n.id}
+                      onClick={event => this.handleClick(event, n.id)}
                     >
                       <TableCell component="th" scope="row" padding="none">
-                        {n.cardname}
+                          <Button variant="contained" size="small" onClick={event => this.removeCardFromDeck(event, n.id)} >
+                            <RemoveIcon />
+                          </Button>
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.setCode}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.name}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.supertype}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.subtype}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.types}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.amount}
                       </TableCell>
                     </TableRow>
                   );
@@ -94,4 +138,4 @@ class LibraryEnhancedTable extends React.Component {
   }
 }
 
-export default LibraryEnhancedTable;
+export default DeckEnhancedTable;

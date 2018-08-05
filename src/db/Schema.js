@@ -7,7 +7,7 @@ export const schema = {
   properties: {
     id: {
       type: 'string',
-      primary: true
+      index: true
     },
     name: {
       type: 'string',

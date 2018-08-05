@@ -10,7 +10,6 @@ class InfoCard extends Component {
 
     render(){
         const { card } = this.props;
-        console.log(card);
         return (
             <div>
                 <Typography variant="body1" gutterBottom align="right">
@@ -29,15 +28,9 @@ class InfoCard extends Component {
                   {card.text}
                 </Typography>
                 <Ability ability={card.ability} />
-                <Typography variant="body1" gutterBottom align="right">
-                  <Attacks attacks={card.attacks} />
-                </Typography>
-                <Typography variant="body1" gutterBottom align="right">
-                  <Weaknesses weaknesses={card.weaknesses} />
-                </Typography>
-                <Typography variant="body1" gutterBottom align="right">
-                  <Resistances resistances={card.resistances} />
-                </Typography>
+                <Attacks attacks={card.attacks} />
+                <Weaknesses weaknesses={card.weaknesses} />
+                <Resistances resistances={card.resistances} />
                 <Typography variant="body1" gutterBottom align="right">
                   Retreat cost: {card.retreatCost}
                 </Typography>

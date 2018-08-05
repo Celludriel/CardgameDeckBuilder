@@ -5,6 +5,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
 
 import LibraryTableHead from './LibraryTableHead';
 
@@ -69,6 +71,11 @@ class LibraryEnhancedTable extends React.Component {
     selectCard(newSelected[0]);
   };
 
+  addCardToDeck = (event, id) => {
+    const { addCardToDeck } = this.props;
+    addCardToDeck(id);
+  };
+
   render() {
     const { order, orderBy, rowsPerPage, page } = this.state;
     const { rows } = this.props;
@@ -103,6 +110,11 @@ class LibraryEnhancedTable extends React.Component {
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
                         {n.types}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                          <Button variant="contained" size="small" onClick={event => this.addCardToDeck(event, n.id)}>
+                            <AddIcon />
+                          </Button>
                       </TableCell>
                     </TableRow>
                   );

@@ -6,7 +6,6 @@ class Ability extends Component {
 
     render(){
         const { ability } = this.props;
-        console.log(ability);
         return (
             ability !== undefined && <div>
                 <Typography variant="body1" gutterBottom align="right">

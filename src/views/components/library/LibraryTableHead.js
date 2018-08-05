@@ -47,6 +47,13 @@ class LibraryTableHead extends React.Component {
               </TableCell>
             );
           }, this)}
+          <TableCell
+            key={'action'}
+            numeric={false}
+            padding={'none'}            
+          >
+            Action
+          </TableCell>
         </TableRow>
       </TableHead>
     );

@@ -27,7 +27,47 @@ const endQueryAction = (db) => ({
 });
 
 const selectCardAction = (cardId) => ({
-    type: types.SELECT_CARD,
+    type: types.START_SELECT_CARD,
+    payload: {
+        cardId
+    }
+});
+
+const startLoadDecksAction = () => ({
+    type: types.START_LOAD_DECKS
+});
+
+const endLoadDecksAction = (decknames) => ({
+    type: types.END_LOAD_DECKS,
+    payload: {
+        decknames
+    }
+});
+
+const startSaveDeckAction = () => ({
+    type: types.SAVE_DECK
+});
+
+const startDeleteDeckAction = () => ({
+    type: types.DELETE_DECK
+});
+
+const selectDeckAction = (deckname) => ({
+    type: types.START_SELECT_DECK,
+    payload: {
+        deckname
+    }
+});
+
+const addCardToDeckAction = (cardId) => ({
+    type: types.ADD_CARD_TO_DECK,
+    payload: {
+        cardId
+    }
+});
+
+const removeCardFromDeckAction = (cardId) => ({
+    type: types.REMOVE_CARD_FROM_DECK,
     payload: {
         cardId
     }
@@ -38,5 +78,12 @@ export {
     endLoadDatabaseAction,
     startQueryAction,
     endQueryAction,
-    selectCardAction
+    selectCardAction,
+    startLoadDecksAction,
+    endLoadDecksAction,
+    startSaveDeckAction,
+    startDeleteDeckAction,
+    selectDeckAction,
+    addCardToDeckAction,
+    removeCardFromDeckAction
 };

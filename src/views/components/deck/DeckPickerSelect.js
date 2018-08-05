@@ -3,17 +3,8 @@ import React, {Component} from 'react';
 import Input from '@material-ui/core/Input';
 import CreatableSelect from 'react-select/lib/Creatable';
 
-const suggestions = [
-  { label: 'Deck 1' },
-  { label: 'Deck 2' },
-  { label: 'Deck 3' }
-].map(suggestion => ({
-  value: suggestion.label,
-  label: suggestion.label,
-}));
-
 function selectWrapped(props) {
-  const { name, instanceId, simpleValue, options } = props;
+  const { name, instanceId, simpleValue, options, changeHandler } = props;
   return (
     <CreatableSelect
         isClearable
@@ -21,6 +12,7 @@ function selectWrapped(props) {
         name={name}
         instanceId={instanceId}
         simpleValue={simpleValue}
+        onChange={changeHandler}
     />
   );
 }
@@ -30,13 +22,22 @@ class DeckPickerSelect extends Component {
     single: null
   };
 
-  handleChange = name => value => {
-    this.setState({
-      [name]: value,
-    });
-  };
+  handleChange = (newValue, actionMeta) => {
+    const { selectDeck } = this.props;
+    selectDeck(newValue);
+  }
 
   render() {
+    const { decknames } = this.props;
+    let suggestions  = [];
+
+    decknames.forEach(function(deckname) {
+        suggestions.push({
+                "value": deckname,
+                "label": deckname
+        });
+    });
+
     return (
         <Input
             id="deck-selection"
@@ -45,10 +46,10 @@ class DeckPickerSelect extends Component {
                 name: 'deck-selection',
                 instanceId: 'deck-selection',
                 simpleValue: true,
-                options: suggestions
+                options: suggestions,
+                changeHandler: this.handleChange
             }}
             value={this.state.single}
-            onChange={this.handleChange('single')}
             placeholder="Load an existing deck"
         />
     );
