@@ -1,6 +1,9 @@
 import * as RxDB from 'rxdb';
 import { schema } from './../../db/Schema';
 
+import { addCardToDeckHelper,
+    removeCardFromDeckHelper } from './../../util/deckbuilder';
+
 //Electron setup
 const electron = window.require('electron');
 const fs = electron.remote.require('fs');
@@ -175,6 +178,14 @@ function loadDeckFromDisk(deckname){
     }
 }
 
+function addCardToDeck(card, deck){
+    return addCardToDeckHelper(card, deck);
+}
+
+function removeCardFromDeck(card, deck){
+    return removeCardFromDeckHelper(card, deck);
+}
+
 export {
     loadDatabaseOperation,
     executeQuery,
@@ -183,5 +194,7 @@ export {
     getAvailableDecknames,
     saveDeckToDisk,
     loadDeckFromDisk,
-    deleteDeckFromDisk
+    deleteDeckFromDisk,
+    addCardToDeck,
+    removeCardFromDeck,
 }

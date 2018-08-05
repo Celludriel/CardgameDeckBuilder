@@ -11,6 +11,9 @@ const START_SELECT_DECK = "app/pokemon/START_SELECT_DECK";
 const END_SELECT_DECK = "app/pokemon/END_SELECT_DECK";
 const START_SELECT_CARD = "app/pokemon/START_SELECT_CARD";
 const END_SELECT_CARD = "app/pokemon/END_SELECT_CARD";
+const ADD_CARD_TO_DECK = "app/pokemon/ADD_CARD_TO_DECK";
+const REMOVE_CARD_FROM_DECK = "app/pokemon/REMOVE_CARD_FROM_DECK";
+const DECK_UPDATE = "app/pokemon/DECK_UPDATE";
 
 export default {
     START_LOAD_DATABASE,
@@ -25,5 +28,8 @@ export default {
     SAVE_DECK,
     DELETE_DECK,
     START_SELECT_DECK,
-    END_SELECT_DECK
+    END_SELECT_DECK,
+    ADD_CARD_TO_DECK,
+    REMOVE_CARD_FROM_DECK,
+    DECK_UPDATE
 };

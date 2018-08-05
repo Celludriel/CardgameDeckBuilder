@@ -48,6 +48,13 @@ const pokemonReducer = ( state = INITIAL_STATE, action ) => {
                         currentDeck: action.payload
                     });
         }
+        case types.DECK_UPDATE: {
+            return Object.assign({}, state, {
+                currentDeck: Object.assign({}, state.currentDeck, {
+                    cards: action.payload
+                })
+            });
+        }
         default: return state;
     }
 }

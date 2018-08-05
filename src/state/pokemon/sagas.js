@@ -2,7 +2,8 @@ import { put, takeLatest, cps, select, call } from 'redux-saga/effects'
 import types from "./types"
 import { loadDatabaseOperation, executeQuery, getCardImageLocation,
     getAvailableDecknames, saveDeckToDisk, loadDeckFromDisk,
-    deleteDeckFromDisk, findCardById } from "./operations"
+    deleteDeckFromDisk, findCardById, addCardToDeck,
+    removeCardFromDeck } from "./operations"
 import { getCurrentDeck, getDb } from '../../state/pokemon/selectors';
 
 export function* loadDatabase() {
@@ -99,6 +100,32 @@ export function* selectCard(action) {
     }
 }
 
+export function* doAddCardToDeck(action) {
+    try {
+        const { cardId } = action.payload;
+        let db = yield select(getDb);
+        const card = yield cps(findCardById, cardId, db);
+        let deck = yield select(getCurrentDeck);
+        const payload = yield call(addCardToDeck, card, deck.cards)
+        yield put({ type: types.DECK_UPDATE, payload });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export function* doRemoveCardFromDeck(action) {
+    try {
+        const { cardId } = action.payload;
+        let db = yield select(getDb);
+        const card = yield cps(findCardById, cardId, db);
+        let deck = yield select(getCurrentDeck);
+        const payload = yield call(removeCardFromDeck, card, deck.cards)
+        yield put({ type: types.DECK_UPDATE, payload });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export function* pokemonSaga() {
   yield [
       takeLatest(types.START_LOAD_DATABASE, loadDatabase),
@@ -108,6 +135,8 @@ export function* pokemonSaga() {
       takeLatest(types.DELETE_DECK, deleteDeck),
       takeLatest(types.START_SELECT_DECK, selectDeck),
       takeLatest(types.START_SELECT_CARD, selectCard),
-      takeLatest(types.SET_CARD_IMAGE, selectOrSaveImage)
+      takeLatest(types.SET_CARD_IMAGE, selectOrSaveImage),
+      takeLatest(types.ADD_CARD_TO_DECK, doAddCardToDeck),
+      takeLatest(types.REMOVE_CARD_FROM_DECK, doRemoveCardFromDeck)
   ];
 }

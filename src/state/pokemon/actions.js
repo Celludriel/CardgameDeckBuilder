@@ -59,6 +59,20 @@ const selectDeckAction = (deckname) => ({
     }
 });
 
+const addCardToDeckAction = (cardId) => ({
+    type: types.ADD_CARD_TO_DECK,
+    payload: {
+        cardId
+    }
+});
+
+const removeCardFromDeckAction = (cardId) => ({
+    type: types.REMOVE_CARD_FROM_DECK,
+    payload: {
+        cardId
+    }
+});
+
 export {
     startLoadDatabaseAction,
     endLoadDatabaseAction,
@@ -69,5 +83,7 @@ export {
     endLoadDecksAction,
     startSaveDeckAction,
     startDeleteDeckAction,
-    selectDeckAction
+    selectDeckAction,
+    addCardToDeckAction,
+    removeCardFromDeckAction
 };
