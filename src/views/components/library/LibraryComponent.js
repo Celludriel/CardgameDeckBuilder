@@ -36,10 +36,10 @@ class LibraryComponent extends Component {
                             executeQuery(buildQuery(values));
                         }}
                         component={LibraryFilter} />
-                </Card>
                 <Divider />
                 {!isQueryRunning && <LibraryEnhancedTable rows={rows} selectCard={selectCard} addCardToDeck={addCardToDeck} />}
                 {isQueryRunning && <QueryRunning />}
+                </Card>
             </div>
         )
     }
