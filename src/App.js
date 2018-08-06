@@ -25,7 +25,7 @@ class App extends Component {
             <div className="App">
                 {isLoading && <AppLoading />}
                 {!isLoading && <Paper>
-                    <Grid container spacing={8}>
+                    <Grid container spacing={0}>
                         <Grid item xs={4}>
                             <LibraryContainer />
                         </Grid>
