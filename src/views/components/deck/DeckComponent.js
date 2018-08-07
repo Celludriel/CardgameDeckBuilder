@@ -10,7 +10,8 @@ class DeckComponent extends Component {
 
     render(){
         const { decknames, saveDeckAction, deleteDeckAction, selectDeck,
-            data, selectCard, removeCardFromDeck } = this.props
+            data, selectCard, removeCardFromDeck, updateDeckFilter,
+            deckFilter, visibleData } = this.props
         return (
             <Paper>
                 <DeckPicker decknames={decknames}
@@ -18,9 +19,11 @@ class DeckComponent extends Component {
                     saveDeckAction={saveDeckAction}
                     deleteDeckAction={deleteDeckAction}
                 />
-                <DeckContents data={data}
+                <DeckContents data={visibleData}
                     selectCard={selectCard}
-                    removeCardFromDeck={removeCardFromDeck} />
+                    removeCardFromDeck={removeCardFromDeck}
+                    updateDeckFilter={updateDeckFilter}
+                    deckFilter={deckFilter} />
                 <DeckInformation data={data} />
             </Paper>
         )

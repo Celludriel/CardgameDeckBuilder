@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
+import Typography from '@material-ui/core/Typography';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryTooltip } from 'victory';
-
-import Card from '@material-ui/core/Card';
 
 class CardDistributionChart extends Component {
 
@@ -27,11 +26,23 @@ class CardDistributionChart extends Component {
         ];
     }
 
+    countAllCards = (cardDistribution) => {
+        let cardCount = 0;
+        cardDistribution.forEach(cardtype => {
+            cardCount += cardtype.cards;
+        })
+        return cardCount;
+    }
+
     render(){
         const { data } = this.props;
         const chartData = this.getCardDistribution(data);
+        const fullCardCount = this.countAllCards(chartData);
         return (
-            <Card>
+            <div>
+                <Typography variant="body1" gutterBottom align="right">
+                  #cards: {fullCardCount}
+                </Typography>
                 <VictoryChart domainPadding={20}
                     theme={VictoryTheme.material}>
                     <VictoryAxis />
@@ -43,7 +54,7 @@ class CardDistributionChart extends Component {
                       y="cards"
                     />
                 </VictoryChart>
-            </Card>
+            </div>
         )
     }
 }

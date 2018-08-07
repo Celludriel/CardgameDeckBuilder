@@ -33,3 +33,16 @@ export function getDecknames(state) {
 export function getCurrentDeck(state) {
     return state.pokemon.currentDeck;
 }
+
+export function getFilteredDeck(state) {
+    var filteredData = {};
+    Object.entries(state.pokemon.currentDeck.cards).forEach(entry => {
+        if(state.pokemon.deckFilter.includes(entry[1].supertype)){
+            filteredData[entry[0]] = entry[1];
+        }
+    })
+    return filteredData;
+}
+export function getDeckFilter(state) {
+    return state.pokemon.deckFilter;
+}

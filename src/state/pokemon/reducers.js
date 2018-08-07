@@ -9,7 +9,8 @@ const INITIAL_STATE = {
     selectedCard: null,
     cardImageLocation: "",
     currentDeck: {name: "", cards: []},
-    decknames: []
+    decknames: [],
+    deckFilter: ["Pokémon","Trainer","Energy"],
 };
 
 const pokemonReducer = ( state = INITIAL_STATE, action ) => {
@@ -53,6 +54,19 @@ const pokemonReducer = ( state = INITIAL_STATE, action ) => {
                 currentDeck: Object.assign({}, state.currentDeck, {
                     cards: action.payload
                 })
+            });
+        }
+        case types.DECK_FILTER_UPDATE: {
+            var e = action.payload.event;
+            var newDeckFilter = [];
+            if (e.target.checked){
+                newDeckFilter = state.deckFilter.concat(e.target.value)
+            } else {
+                newDeckFilter = state.deckFilter.filter(item => item !== e.target.value)
+            }
+
+            return Object.assign({}, state, {
+                deckFilter: newDeckFilter
             });
         }
         default: return state;

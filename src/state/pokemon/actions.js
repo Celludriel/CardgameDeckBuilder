@@ -73,6 +73,13 @@ const removeCardFromDeckAction = (cardId) => ({
     }
 });
 
+const updateDeckFilterAction = (event) => ({
+    type: types.DECK_FILTER_UPDATE,
+    payload: {
+        event
+    }
+});
+
 export {
     startLoadDatabaseAction,
     endLoadDatabaseAction,
@@ -85,5 +92,6 @@ export {
     startDeleteDeckAction,
     selectDeckAction,
     addCardToDeckAction,
-    removeCardFromDeckAction
+    removeCardFromDeckAction,
+    updateDeckFilterAction
 };
