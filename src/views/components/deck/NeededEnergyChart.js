@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { VictoryPie, VictoryTheme } from 'victory';
 
-import Card from '@material-ui/core/Card';
 import CustomPieLabel from './CustomPieLabel';
 
 class NeededEnergyChart extends Component {
@@ -46,17 +45,15 @@ class NeededEnergyChart extends Component {
         const { data } = this.props;
         const chartData = this.getNeededEnergy(data);
         return (
-            <Card>
-                <VictoryPie
-                    labels={(d) => d.x}
-                    labelComponent={<CustomPieLabel />}
-                    labelRadius={90}
-                    data={chartData}
-                    theme={VictoryTheme.material}
-                    padding={0}
-                    style={{ labels: { fill: "white", fontSize: 14, fontWeight: "bold" } }}
-                />
-            </Card>
+            <VictoryPie
+                labels={(d) => d.x}
+                labelComponent={<CustomPieLabel />}
+                labelRadius={90}
+                data={chartData}
+                theme={VictoryTheme.material}
+                padding={0}
+                style={{ labels: { fill: "white", fontSize: 14, fontWeight: "bold" } }}
+            />
         )
     }
 }
