@@ -11,8 +11,6 @@ class InfoCardComponent extends Component {
             <div>
                 <Card>
                     <img alt='card' src={'atom:///' + imageLocation} />
-                </Card>
-                <Card>
                     <InfoCard card={card} />
                 </Card>
             </div>

@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import DeckComponent from '../components/deck/DeckComponent'
-import { getDecknames, getCurrentDeck } from '../../state/pokemon/selectors';
+import { getDecknames, getCurrentDeck, getDeckFilter,
+    getFilteredDeck } from '../../state/pokemon/selectors';
 import { startLoadDecksAction, startSaveDeckAction,
     selectDeckAction, startDeleteDeckAction, selectCardAction,
-    removeCardFromDeckAction } from '../../state/pokemon/actions';
+    removeCardFromDeckAction, updateDeckFilterAction } from '../../state/pokemon/actions';
 
 class DeckContainer extends Component {
 
@@ -39,13 +40,21 @@ class DeckContainer extends Component {
         executeRemoveCardFromDeckAction(cardId);
     }
 
+    updateDeckFilter = (event) => {
+        const { executeUpdateDeckFilterAction } = this.props;
+        executeUpdateDeckFilterAction(event);
+    }
+
     render(){
-        const { decknames, currentDeck } = this.props
+        const { decknames, currentDeck, filteredDeck, deckFilter } = this.props
         return (
             <DeckComponent decknames={decknames} saveDeckAction={this.saveDeck}
                 deleteDeckAction={this.deleteDeck} selectDeck={this.selectDeck}
                 data={currentDeck.cards} selectCard={this.selectCard}
-                removeCardFromDeck={this.removeCardFromDeck} />
+                removeCardFromDeck={this.removeCardFromDeck}
+                updateDeckFilter={this.updateDeckFilter}
+                deckFilter={deckFilter}
+                visibleData={filteredDeck} />
         )
     }
 }
@@ -53,7 +62,9 @@ class DeckContainer extends Component {
 const mapStateToProps = state => {
   return {
       decknames: getDecknames(state),
-      currentDeck: getCurrentDeck(state)
+      currentDeck: getCurrentDeck(state),
+      deckFilter: getDeckFilter(state),
+      filteredDeck: getFilteredDeck(state)
   }
 }
 
@@ -76,6 +87,9 @@ const mapDispatchToProps = dispatch => {
       },
       executeRemoveCardFromDeckAction: (cardId) => {
           dispatch(removeCardFromDeckAction(cardId))
+      },
+      executeUpdateDeckFilterAction: (event) => {
+          dispatch(updateDeckFilterAction(event))
       }
   }
 }

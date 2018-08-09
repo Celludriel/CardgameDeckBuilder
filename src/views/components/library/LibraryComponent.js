@@ -33,14 +33,13 @@ class LibraryComponent extends Component {
                           values,
                           { setSubmitting, setErrors }
                         ) => {
-                            console.log(values);
                             executeQuery(buildQuery(values));
                         }}
                         component={LibraryFilter} />
-                </Card>
                 <Divider />
                 {!isQueryRunning && <LibraryEnhancedTable rows={rows} selectCard={selectCard} addCardToDeck={addCardToDeck} />}
                 {isQueryRunning && <QueryRunning />}
+                </Card>
             </div>
         )
     }

@@ -86,7 +86,7 @@ class DeckEnhancedTable extends Component {
 
     return (
       <Paper>
-        <div>
+        <div style={{ height: "375px", overflow: "auto" }}>
           <Table aria-labelledby="tableTitle">
             <DeckTableHead
               order={order}

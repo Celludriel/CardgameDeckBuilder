@@ -34,7 +34,8 @@ function formatCardForDeck(card){
         "supertype": card.supertype,
         "subtype": card.subtype,
         "types": card.types !== undefined ? card.types : [],
-        "amount": 1
+        "amount": 1,
+        "attacks": card.attacks !== undefined ? card.attacks : []
     }
 }
 

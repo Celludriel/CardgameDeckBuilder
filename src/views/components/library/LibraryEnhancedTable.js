@@ -4,7 +4,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 
@@ -82,67 +81,69 @@ class LibraryEnhancedTable extends React.Component {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     return (
-      <Card>
         <div>
-          <Table aria-labelledby="tableTitle">
-            <LibraryTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={this.handleRequestSort}
-            />
-            <TableBody>
-              {rows
-                .sort(getSorting(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
-                  return (
-                    <TableRow
-                      hover
-                      tabIndex={-1}
-                      key={n.id}
-                      onClick={event => this.handleClick(event, n.id)}
-                    >
-                      <TableCell component="th" scope="row" padding="none">
-                        {n.setCode}
-                      </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
-                        {n.name}
-                      </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
-                        {n.types}
-                      </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
-                          <Button variant="contained" size="small" onClick={event => this.addCardToDeck(event, n.id)}>
-                            <AddIcon />
-                          </Button>
-                      </TableCell>
+            <div style={{ height: "450px", overflow: "auto" }}>
+              <Table aria-labelledby="tableTitle">
+                <LibraryTableHead
+                  order={order}
+                  orderBy={orderBy}
+                  onRequestSort={this.handleRequestSort}
+                />
+                <TableBody>
+                  {rows
+                    .sort(getSorting(order, orderBy))
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map(n => {
+                      return (
+                        <TableRow
+                          hover
+                          tabIndex={-1}
+                          key={n.id}
+                          onClick={event => this.handleClick(event, n.id)}
+                        >
+                          <TableCell component="th" scope="row" padding="none">
+                            {n.setCode}
+                          </TableCell>
+                          <TableCell component="th" scope="row" padding="none">
+                            {n.name}
+                          </TableCell>
+                          <TableCell component="th" scope="row" padding="none">
+                            {n.types}
+                          </TableCell>
+                          <TableCell component="th" scope="row" padding="none">
+                              <Button variant="contained" size="small" onClick={event => this.addCardToDeck(event, n.id)}>
+                                <AddIcon />
+                              </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 49 * emptyRows }}>
+                      <TableCell colSpan={6} />
                     </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+            <div>
+              <TablePagination
+                  component="div"
+                  count={rows.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  backIconButtonProps={{
+                      'aria-label': 'Previous Page',
+                  }}
+                  nextIconButtonProps={{
+                      'aria-label': 'Next Page',
+                  }}
+                  onChangePage={this.handleChangePage}
+                  onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                  rowsPerPageOptions={[8,16,24]}
+              />
+            </div>
         </div>
-        <TablePagination
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'Previous Page',
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'Next Page',
-          }}
-          onChangePage={this.handleChangePage}
-          onChangeRowsPerPage={this.handleChangeRowsPerPage}
-          rowsPerPageOptions={[8,16,24]}
-        />
-    </Card>
     );
   }
 }
