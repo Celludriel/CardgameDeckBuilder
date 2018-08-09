@@ -37,8 +37,8 @@ class LibraryFilter extends Component {
         const superTypes = [{type: "Pokémon"}, {type: "Trainer"}, {type: "Energy"}];
         return (<form onSubmit={handleSubmit}>
             <FormGroup row>
-                <FormControl>
-                    <InputLabel htmlFor="set">Set</InputLabel>
+                <FormControl style={{flexGrow: '1', paddingRight: '10px'}}>
+                    <InputLabel shrink  htmlFor="set">Set</InputLabel>
                     <Select
                         value={values.set}
                         onChange={this.handleCustomChange}
@@ -46,16 +46,26 @@ class LibraryFilter extends Component {
                             name: 'set',
                             id: 'set',
                         }}
+                        displayEmpty
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {values.sets.map(set => <MenuItem key={set} value={set}>{set}</MenuItem>)}
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {values.sets.map(set => <MenuItem key={set} value={set}>{set}</MenuItem>)}
                     </Select>
                 </FormControl>
-                <Input id="cardname" placeholder="Cardname" inputProps={{
-                        'aria-label' : 'Cardname'
-                    }} value={values.cardname} onChange={this.handleCustomChange} onBlur={handleBlur} />
+                <FormControl style={{flexGrow: '10', paddingRight: '10px'}}>
+                    <InputLabel shrink htmlFor="cardname">Card</InputLabel>
+                    <Input
+                        inputProps={{
+                            name: 'cardname',
+                            id: 'cardname'
+                        }}
+                        value={values.cardname}
+                        onChange={this.handleCustomChange}
+                        onBlur={handleBlur}
+                    />
+                </FormControl>
             </FormGroup>
             <FieldArray
               name="supertypes"
