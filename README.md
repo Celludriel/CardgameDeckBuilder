@@ -1,15 +1,12 @@
-# react-electron-poc
+# Deckbuilder for a cardgame
 
-Small POC to learn react and electron with some advanced features
+Basic tool to build a deck
 
 Goals
 
--   React + Electron basic setup
--   Run the app in a dev environment
--   Make a standalone distribution that can be run on another WINDOWS machine
--   Learn how to read a json file from the filesystem using node_js by means
-    of electron
--   Learn how to setup an in memory database with RxDb making it work with electron
--   store and read from the memory database
--   introduce redux
--   introduce material-ui
+-   Filter on Set, Name and Color
+-   Provide info about cards
+-   Load and Save decks
+-   Provide basic statistical information about a deck
+-   Provide a way to share decks
+-   Make it usable offline
