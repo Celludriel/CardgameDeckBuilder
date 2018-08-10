@@ -17,7 +17,7 @@ class LibraryComponent extends Component {
             addCardToDeck } = this.props;
         return (
             <div>
-                <Card>
+                <Card style={{paddingLeft: '10px', paddingRight: '10px'}}>
                     <Formik
                         initialValues={{
                           cardname: '',
@@ -35,7 +35,8 @@ class LibraryComponent extends Component {
                         ) => {
                             executeQuery(buildQuery(values));
                         }}
-                        component={LibraryFilter} />
+                        component={LibraryFilter}
+                    />
                 <Divider />
                 {!isQueryRunning && <LibraryEnhancedTable rows={rows} selectCard={selectCard} addCardToDeck={addCardToDeck} />}
                 {isQueryRunning && <QueryRunning />}

@@ -14,13 +14,12 @@ class DeckInformation extends Component {
             <div>
                 <Grid container spacing={8}>
                     <Grid item xs={4}>
-                        <CardDistributionChart data={data} />
+                        {Object.entries(data).length > 0 && <CardDistributionChart data={data} />}
                     </Grid>
                     <Grid item xs={4}>
-                        <NeededEnergyChart data={data} />
+                        {Object.entries(data).length > 0 && <NeededEnergyChart data={data} />}
                     </Grid>
                     <Grid item xs={4}>
-                        <Card>== deck information here ==</Card>
                     </Grid>
                 </Grid>
             </div>

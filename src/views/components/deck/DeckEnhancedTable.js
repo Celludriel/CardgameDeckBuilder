@@ -3,7 +3,6 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button'
 import RemoveIcon from '@material-ui/icons/Remove'
 
@@ -85,7 +84,6 @@ class DeckEnhancedTable extends Component {
     let tableData = this.normalizeData(data);
 
     return (
-      <Paper>
         <div style={{ height: "375px", overflow: "auto" }}>
           <Table aria-labelledby="tableTitle">
             <DeckTableHead
@@ -133,7 +131,6 @@ class DeckEnhancedTable extends Component {
             </TableBody>
           </Table>
         </div>
-      </Paper>
     );
   }
 }

@@ -54,7 +54,7 @@ class LibraryFilter extends Component {
                         {values.sets.map(set => <MenuItem key={set} value={set}>{set}</MenuItem>)}
                     </Select>
                 </FormControl>
-                <FormControl style={{flexGrow: '10', paddingRight: '10px'}}>
+                <FormControl style={{flexGrow: '10'}}>
                     <InputLabel shrink htmlFor="cardname">Card</InputLabel>
                     <Input
                         inputProps={{
