@@ -51,7 +51,7 @@ async function loadDatabaseOperation(cb) {
 }
 
 async function executeQuery(query, db, cb) {
-    await db.cards.find(query)
+    await db.cards.find(query).sort( { id: 1 } )
         .exec()
         .then(documents => cb(null, documents));
 }
