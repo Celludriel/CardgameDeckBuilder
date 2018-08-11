@@ -19,7 +19,7 @@ class LibraryEnhancedTable extends React.Component {
       orderBy: 'name',
       selected: [],
       page: 0,
-      rowsPerPage: 8,
+      rowsPerPage: 12,
     };
   }
 
@@ -181,7 +181,7 @@ class LibraryEnhancedTable extends React.Component {
                   }}
                   onChangePage={this.handleChangePage}
                   onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                  rowsPerPageOptions={[8,16,24]}
+                  rowsPerPageOptions={[12,24,36]}
               />
             </div>
         </div>
