@@ -5,7 +5,6 @@ class CustomPieLabel extends Component {
     static defaultEvents = VictoryTooltip.defaultEvents;
 
     render() {
-        console.log(this.props);
       	return (
             <g>
                 <VictoryLabel {...this.props}/>

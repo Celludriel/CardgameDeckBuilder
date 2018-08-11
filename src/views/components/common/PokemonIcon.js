@@ -45,10 +45,6 @@ class PokemonIcon extends Component {
 
     render(){
         const { size, type } = this.props;
-        //console.log(app.getAppPath().split("\\").join("/"))
-        if(pokemonIcons[type] === undefined){
-            console.log(type);
-        }
         return (
             <div style={{
                 background: pokemonIcons[type].background,
