@@ -118,7 +118,7 @@ class LibraryEnhancedTable extends React.Component {
     const { rows, showAdd } = this.props;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-    var sortedRows = this.mergeSort(rows, order)
+    var sortedRows = this.mergeSort(rows);
 
     return (
         <div>
