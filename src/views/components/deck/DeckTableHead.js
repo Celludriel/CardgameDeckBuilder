@@ -25,7 +25,6 @@ class LibraryTableHead extends Component {
 
     return (
       <TableHead>
-
         <TableRow>
             <TableCell
               key={'action'}
