@@ -9,7 +9,7 @@ class Resistances extends Component {
         return (
             resistances !== undefined && resistances.map((resistance,index) => {
                 return <div key={index}>
-                    <Typography variant="body1" gutterBottom align="right">
+                    <Typography>
                         {resistance.type} - {resistance.value}
                     </Typography>
                 </div>

@@ -12,26 +12,26 @@ class InfoCard extends Component {
         const { card } = this.props;
         return (
             <div>
-                <Typography variant="body1" gutterBottom align="right">
+                <Typography>
                   Set: {card.setCode} No: {card.number}
                 </Typography>
-                <Typography variant="body1" gutterBottom align="right">
+                <Typography>
                   Name: {card.name} HP: {card.hp}
                 </Typography>
-                <Typography variant="body1" gutterBottom align="right">
+                <Typography>
                   Type: {card.supertype} Subtype: {card.subtype}
                 </Typography>
-                <Typography variant="body1" gutterBottom align="right">
+                <Typography>
                   Types: {card.types} Rarity: {card.rarity}
                 </Typography>
-                <Typography variant="body1" gutterBottom align="right">
+                <Typography>
                   {card.text}
                 </Typography>
                 <Ability ability={card.ability} />
                 <Attacks attacks={card.attacks} />
                 <Weaknesses weaknesses={card.weaknesses} />
                 <Resistances resistances={card.resistances} />
-                <Typography variant="body1" gutterBottom align="right">
+                <Typography>
                   Retreat cost: {card.retreatCost}
                 </Typography>
             </div>

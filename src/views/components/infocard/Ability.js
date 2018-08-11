@@ -8,13 +8,13 @@ class Ability extends Component {
         const { ability } = this.props;
         return (
             ability !== undefined && <div>
-                <Typography variant="body1" gutterBottom align="right">
+                <Typography>
                     {ability.type}
                 </Typography>
-                <Typography variant="body1" gutterBottom align="right">
+                <Typography>
                     {ability.name}
                 </Typography>
-                <Typography variant="body1" gutterBottom align="right">
+                <Typography>
                     {ability.text}
                 </Typography>
             </div>

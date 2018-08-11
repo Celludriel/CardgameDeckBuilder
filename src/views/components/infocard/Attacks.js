@@ -9,10 +9,10 @@ class Attacks extends Component {
         return (
             attacks !== undefined && attacks.map(attack => {
                 return <div key={attack.name}>
-                    <Typography variant="body1" gutterBottom align="right">
+                    <Typography>
                         {attack.cost}- {attack.name} - {attack.damage}
                     </Typography>
-                    <Typography variant="body1" gutterBottom align="right">
+                    <Typography>
                         {attack.text}
                     </Typography>
                 </div>

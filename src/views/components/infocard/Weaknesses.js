@@ -9,7 +9,7 @@ class Weaknesses extends Component {
         return (
             weaknesses !== undefined && weaknesses.map((weakness,index) => {
                 return <div key={index}>
-                    <Typography variant="body1" gutterBottom align="right">
+                    <Typography>
                         {weakness.type} - {weakness.value}
                     </Typography>
                 </div>
