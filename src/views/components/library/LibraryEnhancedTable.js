@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 
 import LibraryTableHead from './LibraryTableHead';
+import PokemonIconArray from '../common/PokemonIconArray';
 
 function getSorting(order, orderBy) {
   return order === 'desc'
@@ -108,7 +109,9 @@ class LibraryEnhancedTable extends React.Component {
                             {n.name}
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
-                            {n.types}
+                            {n.types !== undefined &&
+                                <PokemonIconArray data={n.types} />
+                            }
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                               <Button variant="contained" size="small" onClick={event => this.addCardToDeck(event, n.id)}>

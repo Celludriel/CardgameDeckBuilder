@@ -24,7 +24,7 @@ class App extends Component {
         return (
             <div className="App">
                 {isLoading && <AppLoading />}
-                {!isLoading && <Paper>
+                {!isLoading && <Paper styles={{height: '100%'}}>
                     <Grid container spacing={0}>
                         <Grid item xs={4}>
                             <LibraryContainer />

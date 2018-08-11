@@ -4,34 +4,40 @@ const electron = window.require('electron');
 const app = electron.remote.app;
 
 
-const iconPath = "atom:///" + app.getAppPath().split("\\").join("/") + "/data/pokemon_symbols.png";
+const iconPath = "atom:///" + app.getAppPath().split("\\").join("/") + "/data/pokemon_symbols.jpg";
 const pokemonIcons = {
     'Grass': {
-        background: "url('"+iconPath+"') no-repeat -1px -1px",
+        background: "url('"+iconPath+"') no-repeat -111px -155px",
     },
     'Darkness': {
-        background: "url('"+iconPath+"') no-repeat -238px -1px",
+        background: "url('"+iconPath+"') no-repeat -170px -269px",
     },
     'Colorless': {
-        background: "url('"+iconPath+"') no-repeat -482px  -1px",
+        background: "url('"+iconPath+"') no-repeat -170px  -40px",
     },
     'Fighting': {
-        background: "url('"+iconPath+"') no-repeat -723px  -1px",
+        background: "url('"+iconPath+"') no-repeat -54px  -40px",
     },
     'Fire': {
-        background: "url('"+iconPath+"') no-repeat -964px  -1px",
+        background: "url('"+iconPath+"') no-repeat -342px  -155px",
     },
-    'Electric': {
-        background: "url('"+iconPath+"') no-repeat -121px  -194px",
+    'Lightning': {
+        background: "url('"+iconPath+"') no-repeat -54px  -269px",
     },
     'Water': {
-        background: "url('"+iconPath+"') no-repeat -362px  -194px",
+        background: "url('"+iconPath+"') no-repeat -400px  -40px",
     },
     'Psychic': {
-        background: "url('"+iconPath+"') no-repeat -603px  -194px",
+        background: "url('"+iconPath+"') no-repeat -284px  -40px",
     },
     'Metal': {
-        background: "url('"+iconPath+"') no-repeat -843px  -194px",
+        background: "url('"+iconPath+"') no-repeat -284px  -269px",
+    },
+    'Dragon': {
+        background: "url('"+iconPath+"') no-repeat -400px  -269px",
+    },
+    'Fairy': {
+        background: "url('"+iconPath+"') no-repeat -226px  -155px",
     }
 }
 
@@ -40,11 +46,14 @@ class PokemonIcon extends Component {
     render(){
         const { size, type } = this.props;
         //console.log(app.getAppPath().split("\\").join("/"))
+        if(pokemonIcons[type] === undefined){
+            console.log(type);
+        }
         return (
             <div style={{
                 background: pokemonIcons[type].background,
-                width: '130px',
-                height: '130px',
+                width: '115px',
+                height: '115px',
                 zoom: size
             }}/>
         )

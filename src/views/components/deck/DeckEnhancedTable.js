@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import RemoveIcon from '@material-ui/icons/Remove'
 
 import DeckTableHead from './DeckTableHead';
+import PokemonIconArray from '../common/PokemonIconArray';
 
 function getSorting(order, orderBy) {
   return order === 'desc'
@@ -120,7 +121,9 @@ class DeckEnhancedTable extends Component {
                         {n.subtype}
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.types}
+                          {n.types !== undefined &&
+                              <PokemonIconArray data={n.types} />
+                          }
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
                         {n.amount}
