@@ -10,52 +10,6 @@ import AddIcon from '@material-ui/icons/Add'
 import LibraryTableHead from './LibraryTableHead';
 import PokemonIconArray from '../common/PokemonIconArray';
 
-var currentOrderBy = 'name';
-var currentOrder = "asc";
-
-// Split the array into halves and merge them recursively
-function mergeSort (arr) {
-  if (arr.length === 1) {
-    // return once we hit an array with a single item
-    return arr
-  }
-
-  const middle = Math.floor(arr.length / 2) // get the middle item of the array rounded down
-  const left = arr.slice(0, middle) // items on the left side
-  const right = arr.slice(middle) // items on the right side
-
-  return merge(mergeSort(left),mergeSort(right));
-}
-
-// compare the arrays item by item and return the concatenated result
-function merge (left, right) {
-  let result = []
-  let indexLeft = 0
-  let indexRight = 0
-
-  while (indexLeft < left.length && indexRight < right.length) {
-      if(currentOrder === 'asc'){
-          if (left[indexLeft][currentOrderBy] < right[indexRight][currentOrderBy]) {
-              result.push(left[indexLeft])
-              indexLeft++
-          } else {
-              result.push(right[indexRight])
-              indexRight++
-          }
-      } else {
-          if (left[indexLeft][currentOrderBy] > right[indexRight][currentOrderBy]) {
-              result.push(left[indexLeft])
-              indexLeft++
-          } else {
-              result.push(right[indexRight])
-              indexRight++
-          }
-      }
-  }
-
-  return result.concat(left.slice(indexLeft)).concat(right.slice(indexRight))
-}
-
 class LibraryEnhancedTable extends React.Component {
   constructor(props) {
     super(props);
@@ -67,6 +21,49 @@ class LibraryEnhancedTable extends React.Component {
       page: 0,
       rowsPerPage: 8,
     };
+  }
+
+  // Split the array into halves and merge them recursively
+  mergeSort = (arr) => {
+    if (arr.length === 1) {
+      // return once we hit an array with a single item
+      return arr
+    }
+
+    const middle = Math.floor(arr.length / 2) // get the middle item of the array rounded down
+    const left = arr.slice(0, middle) // items on the left side
+    const right = arr.slice(middle) // items on the right side
+
+    return this.merge(this.mergeSort(left),this.mergeSort(right));
+  }
+
+  // compare the arrays item by item and return the concatenated result
+  merge = (left, right) => {
+    let result = []
+    let indexLeft = 0
+    let indexRight = 0
+
+    while (indexLeft < left.length && indexRight < right.length) {
+        if(this.state.order === 'asc'){
+            if (left[indexLeft][this.state.orderBy] < right[indexRight][this.state.orderBy]) {
+                result.push(left[indexLeft])
+                indexLeft++
+            } else {
+                result.push(right[indexRight])
+                indexRight++
+            }
+        } else {
+            if (left[indexLeft][this.state.orderBy] > right[indexRight][this.state.orderBy]) {
+                result.push(left[indexLeft])
+                indexLeft++
+            } else {
+                result.push(right[indexRight])
+                indexRight++
+            }
+        }
+    }
+
+    return result.concat(left.slice(indexLeft)).concat(right.slice(indexRight))
   }
 
   handleRequestSort = (event, property) => {
@@ -121,10 +118,7 @@ class LibraryEnhancedTable extends React.Component {
     const { rows, showAdd } = this.props;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-    currentOrderBy = orderBy;
-    currentOrder = order;
-
-    var sortedRows = mergeSort(rows, order)
+    var sortedRows = this.mergeSort(rows, order)
 
     return (
         <div>
