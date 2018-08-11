@@ -15,9 +15,12 @@ class LibraryComponent extends Component {
     render(){
         const { rows, executeQuery, isQueryRunning, sets, selectCard,
             addCardToDeck, showAdd } = this.props;
+
+        const filterStyle = !isQueryRunning ? {paddingLeft: '10px', paddingRight: '10px'}
+        : {paddingLeft: '10px', paddingRight: '10px', pointerEvents: 'none', opacity: 0.4}
         return (
             <div>
-                <Card style={{paddingLeft: '10px', paddingRight: '10px'}}>
+                <Card style={filterStyle}>
                     <Formik
                         initialValues={{
                           cardname: '',
