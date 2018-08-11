@@ -78,7 +78,7 @@ class LibraryEnhancedTable extends React.Component {
 
   render() {
     const { order, orderBy, rowsPerPage, page } = this.state;
-    const { rows } = this.props;
+    const { rows, showAdd } = this.props;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     return (
@@ -114,9 +114,9 @@ class LibraryEnhancedTable extends React.Component {
                             }
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
-                              <Button variant="contained" size="small" onClick={event => this.addCardToDeck(event, n.id)}>
-                                <AddIcon />
-                              </Button>
+                              {showAdd && <Button variant="contained" size="small" onClick={event => this.addCardToDeck(event, n.id)}>
+                                  <AddIcon />
+                                </Button>}
                           </TableCell>
                         </TableRow>
                       );

@@ -14,7 +14,7 @@ class LibraryComponent extends Component {
 
     render(){
         const { rows, executeQuery, isQueryRunning, sets, selectCard,
-            addCardToDeck } = this.props;
+            addCardToDeck, showAdd } = this.props;
         return (
             <div>
                 <Card style={{paddingLeft: '10px', paddingRight: '10px'}}>
@@ -38,7 +38,10 @@ class LibraryComponent extends Component {
                         component={LibraryFilter}
                     />
                 <Divider />
-                {!isQueryRunning && <LibraryEnhancedTable rows={rows} selectCard={selectCard} addCardToDeck={addCardToDeck} />}
+                {!isQueryRunning && <LibraryEnhancedTable rows={rows}
+                    selectCard={selectCard}
+                    addCardToDeck={addCardToDeck}
+                    showAdd={showAdd} />}
                 {isQueryRunning && <QueryRunning />}
                 </Card>
             </div>
