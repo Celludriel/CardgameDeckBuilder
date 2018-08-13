@@ -46,6 +46,14 @@ class InfoCard extends Component {
                             <Typography>{card.name}</Typography>
                         </Grid>
                     </Grid>}
+                    {card.evolvesFrom !== undefined && <Grid container spacing={0} direction={'row'}>
+                        <Grid item xs={5}>
+                            <Typography>Evolves from:</Typography>
+                        </Grid>
+                        <Grid item xs={7}>
+                            <Typography>{card.evolvesFrom}</Typography>
+                        </Grid>
+                    </Grid>}
                     <Grid container spacing={0} direction={'row'}>
                         <Grid item xs={3}>
                             <Typography>Type:</Typography>
