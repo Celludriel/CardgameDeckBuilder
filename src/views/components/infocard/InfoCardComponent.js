@@ -10,7 +10,9 @@ class InfoCardComponent extends Component {
         return (
             <Grid container>
                 <Grid item>
-                    <img alt='card' src={'atom:///' + imageLocation} width="90%" height="90%" style={{marginLeft: '12px'}} />
+                    <img alt='card' src={'atom:///' + imageLocation}
+                    style={{objectFit: 'contain', height: '90%', width: '90%',
+                    marginLeft: 'auto', marginRight: 'auto', display: 'block'}} />
                 </Grid>
                 <Grid item>
                     <InfoCard card={card} />
