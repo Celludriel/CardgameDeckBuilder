@@ -131,6 +131,10 @@ function getCardImageLocation(card){
 
 function getAvailableDecknames(){
     let directory = app.getPath('userData') + "/decks";
+    if(!fs.isDir(directory)){
+        fs.mkdirp(directory);
+    }
+    
     let decknames = [];
     var files = fs.readdirSync(directory);
     if(files !== undefined){
@@ -143,6 +147,10 @@ function getAvailableDecknames(){
 
 function saveDeckToDisk(deck){
     let directory = app.getPath('userData') + "/decks";
+    if(!fs.isDir(directory)){
+        fs.mkdirp(directory);
+    }
+
     let filename = directory + "/" + deck.name + ".json";
     let content = JSON.stringify(deck);
 
