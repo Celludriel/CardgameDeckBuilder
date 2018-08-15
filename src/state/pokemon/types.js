@@ -1,0 +1,37 @@
+const START_LOAD_DATABASE = "app/pokemon/START_LOAD_DATABASE";
+const END_LOAD_DATABASE = "app/pokemon/END_LOAD_DATABASE";
+const START_QUERY = "app/pokemon/START_QUERY";
+const END_QUERY = "app/pokemon/END_QUERY";
+const SET_CARD_IMAGE = "app/pokemon/SET_CARD_IMAGE";
+const START_LOAD_DECKS = "app/pokemon/START_LOAD_DECKS";
+const END_LOAD_DECKS = "app/pokemon/END_LOAD_DECKS";
+const SAVE_DECK = "app/pokemon/SAVE_DECK";
+const DELETE_DECK = "app/pokemon/DELETE_DECK";
+const START_SELECT_DECK = "app/pokemon/START_SELECT_DECK";
+const END_SELECT_DECK = "app/pokemon/END_SELECT_DECK";
+const START_SELECT_CARD = "app/pokemon/START_SELECT_CARD";
+const END_SELECT_CARD = "app/pokemon/END_SELECT_CARD";
+const ADD_CARD_TO_DECK = "app/pokemon/ADD_CARD_TO_DECK";
+const REMOVE_CARD_FROM_DECK = "app/pokemon/REMOVE_CARD_FROM_DECK";
+const DECK_UPDATE = "app/pokemon/DECK_UPDATE";
+const DECK_FILTER_UPDATE = "app/pokemon/DECK_FILTER_UPDATE";
+
+export default {
+    START_LOAD_DATABASE,
+    END_LOAD_DATABASE,
+    START_QUERY,
+    END_QUERY,
+    START_SELECT_CARD,
+    END_SELECT_CARD,
+    SET_CARD_IMAGE,
+    START_LOAD_DECKS,
+    END_LOAD_DECKS,
+    SAVE_DECK,
+    DELETE_DECK,
+    START_SELECT_DECK,
+    END_SELECT_DECK,
+    ADD_CARD_TO_DECK,
+    REMOVE_CARD_FROM_DECK,
+    DECK_UPDATE,
+    DECK_FILTER_UPDATE
+};

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Pokemon Deckbuilder</title>
+</head>
+<body style="overflow: none; background-color: rgba(0,0,0,0)" >
+  <div id="App" ></div>
+</body>
+
+<script type="text/jsx">
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+    import { Provider as ReduxProvider } from "react-redux";
+    import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+    import { createMuiTheme } from '@material-ui/core/styles';
+    import { AppContainer } from 'react-hot-loader';
+    import configureStore from "./state/store";
+
+    const render = () => {
+      const AppReduxContainer = require('./App').default;
+      const reduxStore = configureStore(window.REDUX_INITIAL_DATA);
+      const theme = createMuiTheme();
+      theme.overrides = {
+        MuiSelect: {
+            // see https://github.com/mui-org/material-ui/issues/9826
+            select: {
+                padding: undefined,
+                paddingRight: theme.spacing.unit * 4,
+                height: undefined,
+            },
+            selectMenu: {
+                lineHeight: undefined,
+                minHeight: '0em'
+            }
+        },
+        MuiTableRow: {
+            root: {
+                height: '30px'
+            }
+        },
+        MuiButton: {
+            sizeSmall: {
+                padding: '0px 0px',
+                minWidth: '40px',
+                minHeight: '30px'
+            }
+        }
+      }
+
+      ReactDOM.render(
+          <ReduxProvider store={reduxStore}>
+              <MuiThemeProvider theme={theme}>
+                  <AppReduxContainer />
+              </MuiThemeProvider>
+          </ReduxProvider>,
+          document.getElementById('App'));
+    }
+
+    render();
+    if (module.hot) {
+      module.hot.accept(render);
+    }
+</script>
+</html>
