@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import { getLibraryRows, getDb, isQueryRunning, getSets } from '../../state/pokemon/selectors';
-import { startQueryAction, selectCardAction, addCardToDeckAction } from '../../state/pokemon/actions';
+import { getLibraryRows, getDb, isQueryRunning,
+    getSets, getCurrentDeck } from '../../state/pokemon/selectors';
+import { startQueryAction, selectCardAction,
+    addCardToDeckAction } from '../../state/pokemon/actions';
 
 import LibraryComponent from '../components/library/LibraryComponent';
 
@@ -24,10 +26,15 @@ class LibraryContainer extends Component {
     }
 
     render(){
-        const { libraryRows, isQueryRunning, sets } = this.props
+        const { libraryRows, isQueryRunning, sets, currentDeck } = this.props
         return (
-            this.selectCard !== {} && <LibraryComponent rows={libraryRows} executeQuery={this.executeQuery} isQueryRunning={isQueryRunning} sets={sets}
-                selectCard={this.selectCard} addCardToDeck={this.addCardToDeck} />
+            this.selectCard !== {} && <LibraryComponent rows={libraryRows}
+                executeQuery={this.executeQuery}
+                isQueryRunning={isQueryRunning}
+                sets={sets}
+                selectCard={this.selectCard}
+                addCardToDeck={this.addCardToDeck}
+                showAdd={currentDeck.name !== ''} />
         )
     }
 }
@@ -37,7 +44,8 @@ const mapStateToProps = state => {
       libraryRows: getLibraryRows(state),
       db: getDb(state),
       sets: getSets(state),
-      isQueryRunning: isQueryRunning(state)
+      isQueryRunning: isQueryRunning(state),
+      currentDeck: getCurrentDeck(state)
   }
 }
 

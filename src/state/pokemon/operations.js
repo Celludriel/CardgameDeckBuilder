@@ -51,7 +51,7 @@ async function loadDatabaseOperation(cb) {
 }
 
 async function executeQuery(query, db, cb) {
-    await db.cards.find(query)
+    await db.cards.find(query).sort( { id: 1 } )
         .exec()
         .then(documents => cb(null, documents));
 }
@@ -131,6 +131,10 @@ function getCardImageLocation(card){
 
 function getAvailableDecknames(){
     let directory = app.getPath('userData') + "/decks";
+    if(!fs.isDir(directory)){
+        fs.mkdirp(directory);
+    }
+    
     let decknames = [];
     var files = fs.readdirSync(directory);
     if(files !== undefined){
@@ -143,6 +147,10 @@ function getAvailableDecknames(){
 
 function saveDeckToDisk(deck){
     let directory = app.getPath('userData') + "/decks";
+    if(!fs.isDir(directory)){
+        fs.mkdirp(directory);
+    }
+
     let filename = directory + "/" + deck.name + ".json";
     let content = JSON.stringify(deck);
 
@@ -173,7 +181,6 @@ function loadDeckFromDisk(deckname){
       fs.accessSync(filename, fs.constants.R_OK);
       return JSON.parse(fs.readFileSync(filename, 'utf-8'));
     } catch (err) {
-      console.log(err);
       return {"name": deckname, "cards": []};
     }
 }

@@ -40,7 +40,7 @@ class CardDistributionChart extends Component {
         const fullCardCount = this.countAllCards(chartData);
         return (
             <div>
-                <Typography variant="body1" gutterBottom align="right">
+                <Typography>
                   #cards: {fullCardCount}
                 </Typography>
                 <VictoryChart domainPadding={20}

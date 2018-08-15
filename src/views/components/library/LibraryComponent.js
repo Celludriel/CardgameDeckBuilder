@@ -14,10 +14,13 @@ class LibraryComponent extends Component {
 
     render(){
         const { rows, executeQuery, isQueryRunning, sets, selectCard,
-            addCardToDeck } = this.props;
+            addCardToDeck, showAdd } = this.props;
+
+        const filterStyle = !isQueryRunning ? {paddingLeft: '10px', paddingRight: '10px'}
+        : {paddingLeft: '10px', paddingRight: '10px', pointerEvents: 'none', opacity: 0.4}
         return (
             <div>
-                <Card>
+                <Card style={filterStyle}>
                     <Formik
                         initialValues={{
                           cardname: '',
@@ -35,9 +38,13 @@ class LibraryComponent extends Component {
                         ) => {
                             executeQuery(buildQuery(values));
                         }}
-                        component={LibraryFilter} />
+                        component={LibraryFilter}
+                    />
                 <Divider />
-                {!isQueryRunning && <LibraryEnhancedTable rows={rows} selectCard={selectCard} addCardToDeck={addCardToDeck} />}
+                {!isQueryRunning && <LibraryEnhancedTable rows={rows}
+                    selectCard={selectCard}
+                    addCardToDeck={addCardToDeck}
+                    showAdd={showAdd} />}
                 {isQueryRunning && <QueryRunning />}
                 </Card>
             </div>

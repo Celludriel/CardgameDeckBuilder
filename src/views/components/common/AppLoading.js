@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import Paper from '@material-ui/core/Paper'
 
+import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 class AppLoading extends Component {
@@ -11,7 +12,7 @@ class AppLoading extends Component {
             <Paper>
                 <div>
                   <LinearProgress />
-                  <div>Loading Application...</div>
+                  <div><Typography>Loading Application...</Typography></div>
                   <LinearProgress color="secondary" />
                 </div>
             </Paper>

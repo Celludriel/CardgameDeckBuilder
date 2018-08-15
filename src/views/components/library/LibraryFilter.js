@@ -12,15 +12,51 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
 
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+}
+
 class LibraryFilter extends Component {
+
+    componentDidMount = () => {
+       this.submitForm = debounce(this.submitForm, 1000);
+    }
 
     handleCustomChange = (e) => {
         this.props.handleChange(e);
+        this.submitForm();      
+    }
+
+    submitForm = () => {
         this.props.submitForm();
     }
 
+    debounce = (func, wait, immediate) => {
+    	var timeout;
+    	return function() {
+    		var context = this, args = arguments;
+    		clearTimeout(timeout);
+    		timeout = setTimeout(function() {
+    			timeout = null;
+    			if (!immediate) func.apply(context, args);
+    		}, wait);
+    		if (immediate && !timeout) func.apply(context, args);
+    	};
+    }
+
     fieldArrayChange = (e) => {
-        this.props.submitForm();
+        this.submitForm();
     }
 
     typesChange = (e, arrayHelpers, values, type) => {
@@ -37,8 +73,8 @@ class LibraryFilter extends Component {
         const superTypes = [{type: "Pokémon"}, {type: "Trainer"}, {type: "Energy"}];
         return (<form onSubmit={handleSubmit}>
             <FormGroup row>
-                <FormControl>
-                    <InputLabel htmlFor="set">Set</InputLabel>
+                <FormControl style={{flexGrow: '1', paddingRight: '10px'}}>
+                    <InputLabel shrink  htmlFor="set">Set</InputLabel>
                     <Select
                         value={values.set}
                         onChange={this.handleCustomChange}
@@ -46,16 +82,26 @@ class LibraryFilter extends Component {
                             name: 'set',
                             id: 'set',
                         }}
+                        displayEmpty
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {values.sets.map(set => <MenuItem key={set} value={set}>{set}</MenuItem>)}
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {values.sets.map(set => <MenuItem key={set} value={set}>{set}</MenuItem>)}
                     </Select>
                 </FormControl>
-                <Input id="cardname" placeholder="Cardname" inputProps={{
-                        'aria-label' : 'Cardname'
-                    }} value={values.cardname} onChange={this.handleCustomChange} onBlur={handleBlur} />
+                <FormControl style={{flexGrow: '10'}}>
+                    <InputLabel shrink htmlFor="cardname">Card</InputLabel>
+                    <Input
+                        inputProps={{
+                            name: 'cardname',
+                            id: 'cardname'
+                        }}
+                        value={values.cardname}
+                        onChange={this.handleCustomChange}
+                        onBlur={handleBlur}
+                    />
+                </FormControl>
             </FormGroup>
             <FieldArray
               name="supertypes"

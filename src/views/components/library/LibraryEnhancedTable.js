@@ -8,12 +8,7 @@ import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 
 import LibraryTableHead from './LibraryTableHead';
-
-function getSorting(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
-    : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
-}
+import PokemonIconArray from '../common/PokemonIconArray';
 
 class LibraryEnhancedTable extends React.Component {
   constructor(props) {
@@ -24,8 +19,51 @@ class LibraryEnhancedTable extends React.Component {
       orderBy: 'name',
       selected: [],
       page: 0,
-      rowsPerPage: 8,
+      rowsPerPage: 12,
     };
+  }
+
+  // Split the array into halves and merge them recursively
+  mergeSort = (arr) => {
+    if (arr.length === 1) {
+      // return once we hit an array with a single item
+      return arr
+    }
+
+    const middle = Math.floor(arr.length / 2) // get the middle item of the array rounded down
+    const left = arr.slice(0, middle) // items on the left side
+    const right = arr.slice(middle) // items on the right side
+
+    return this.merge(this.mergeSort(left),this.mergeSort(right));
+  }
+
+  // compare the arrays item by item and return the concatenated result
+  merge = (left, right) => {
+    let result = []
+    let indexLeft = 0
+    let indexRight = 0
+
+    while (indexLeft < left.length && indexRight < right.length) {
+        if(this.state.order === 'asc'){
+            if (left[indexLeft][this.state.orderBy] < right[indexRight][this.state.orderBy]) {
+                result.push(left[indexLeft])
+                indexLeft++
+            } else {
+                result.push(right[indexRight])
+                indexRight++
+            }
+        } else {
+            if (left[indexLeft][this.state.orderBy] > right[indexRight][this.state.orderBy]) {
+                result.push(left[indexLeft])
+                indexLeft++
+            } else {
+                result.push(right[indexRight])
+                indexRight++
+            }
+        }
+    }
+
+    return result.concat(left.slice(indexLeft)).concat(right.slice(indexRight))
   }
 
   handleRequestSort = (event, property) => {
@@ -77,8 +115,10 @@ class LibraryEnhancedTable extends React.Component {
 
   render() {
     const { order, orderBy, rowsPerPage, page } = this.state;
-    const { rows } = this.props;
+    const { rows, showAdd } = this.props;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
+    var sortedRows = rows.length > 0 ? this.mergeSort(rows) : [];
 
     return (
         <div>
@@ -90,8 +130,7 @@ class LibraryEnhancedTable extends React.Component {
                   onRequestSort={this.handleRequestSort}
                 />
                 <TableBody>
-                  {rows
-                    .sort(getSorting(order, orderBy))
+                  {sortedRows
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(n => {
                       return (
@@ -108,12 +147,14 @@ class LibraryEnhancedTable extends React.Component {
                             {n.name}
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
-                            {n.types}
+                            {n.types !== undefined &&
+                                <PokemonIconArray data={n.types} />
+                            }
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
-                              <Button variant="contained" size="small" onClick={event => this.addCardToDeck(event, n.id)}>
-                                <AddIcon />
-                              </Button>
+                              {showAdd && <Button variant="contained" size="small" onClick={event => this.addCardToDeck(event, n.id)}>
+                                  <AddIcon />
+                                </Button>}
                           </TableCell>
                         </TableRow>
                       );
@@ -140,7 +181,7 @@ class LibraryEnhancedTable extends React.Component {
                   }}
                   onChangePage={this.handleChangePage}
                   onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                  rowsPerPageOptions={[8,16,24]}
+                  rowsPerPageOptions={[12,24,36]}
               />
             </div>
         </div>

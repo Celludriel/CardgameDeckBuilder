@@ -51,6 +51,7 @@ class DeckPickerSelect extends Component {
             }}
             value={this.state.single}
             placeholder="Load an existing deck"
+            style={{display: 'inline'}}
         />
     );
   }
